@@ -1,3 +1,3 @@
 rootProject.name = "ComposePreferences"
-include ':app'
-include ':preferences'
+include(":app")
+include(":preferences")
