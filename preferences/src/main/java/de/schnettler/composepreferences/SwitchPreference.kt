@@ -24,7 +24,7 @@ fun SwitchPreference(
     defaultValue: Boolean = false
 ) {
     val preferences = AmbientPreferences.current
-    val state by preferences.getBoolean(key).asFlow().collectAsState(initial = defaultValue)
+    val state by preferences.getBoolean(key, defaultValue).asFlow().collectAsState(initial = defaultValue)
     ListItem(
         text = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
         secondaryText = { Text(text = summary) },

@@ -27,11 +27,12 @@ fun MultiSelectListPreference(
     key: String,
     singleLineTitle: Boolean,
     icon: VectorAsset,
-    entries: Map<String, String>
+    entries: Map<String, String>,
+    defaultValue: Set<String> = emptySet()
 ) {
     val preferences = AmbientPreferences.current
-    val selected by preferences.getStringSet(key = key, setOf()).asFlow()
-        .collectAsState(initial = setOf())
+    val selected by preferences.getStringSet(key = key, defaultValue).asFlow()
+        .collectAsState(initial = defaultValue)
     val showDialog = state { false }
     val closeDialog = { showDialog.value = false }
     val descripion = entries.filter { selected.contains(it.key) }.map { it.value }

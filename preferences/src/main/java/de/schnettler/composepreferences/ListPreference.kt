@@ -27,10 +27,11 @@ fun ListPreference(
     key: String,
     singleLineTitle: Boolean,
     icon: VectorAsset,
-    entries: Map<String, String>
+    entries: Map<String, String>,
+    defaultValue: String = ""
 ) {
     val preferences = AmbientPreferences.current
-    val selected by preferences.getString(key = key, "").asFlow().collectAsState(initial = "")
+    val selected by preferences.getString(key = key, defaultValue).asFlow().collectAsState(initial = defaultValue)
     val showDialog = state { false }
     val closeDialog = { showDialog.value = false }
 
