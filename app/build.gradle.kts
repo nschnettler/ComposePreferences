@@ -26,8 +26,8 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "0.1.0-dev15"
-        kotlinCompilerVersion = "1.4.0-dev-withExperimentalGoogleExtensions-20200720"
+        kotlinCompilerExtensionVersion = "0.1.0-dev16"
+        kotlinCompilerVersion = "1.4.0-rc"
     }
     kotlinOptions {
         freeCompilerArgs += listOf(
@@ -46,8 +46,8 @@ dependencies {
     implementation("androidx.core:core-ktx:1.3.1")
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("com.google.android.material:material:1.2.0")
-    implementation("androidx.compose.foundation:foundation-layout:0.1.0-dev15")
-    implementation("androidx.compose.material:material:0.1.0-dev15")
-    implementation("androidx.ui:ui-tooling:0.1.0-dev15")
+    implementation("androidx.compose.foundation:foundation-layout:0.1.0-dev16")
+    implementation("androidx.compose.material:material:0.1.0-dev16")
+    implementation("androidx.ui:ui-tooling:0.1.0-dev16")
     implementation("androidx.preference:preference-ktx:1.1.1")
 }
