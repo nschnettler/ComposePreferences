@@ -30,7 +30,8 @@ fun SeekBarPreference(
     key: String,
     defaultValue: Float,
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
-    steps: Int = 0
+    steps: Int = 0,
+    valueRepresentation: (Float) -> String
 ) {
     val preferences = AmbientPreferences.current
     var sliderValue by state { preferences.getFloat(key, defaultValue).get() }
@@ -40,7 +41,7 @@ fun SeekBarPreference(
             Column {
                 Text(text = summary)
                 Row(verticalGravity = Alignment.CenterVertically) {
-                    Text(text = "${sliderValue.roundToInt()} %")
+                    Text(text = valueRepresentation(sliderValue))
                     Spacer(modifier = Modifier.width(16.dp))
                     Slider(
                         value = sliderValue,
