@@ -2,6 +2,7 @@ package de.schnettler.composepreferences
 
 import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ListItem
 import androidx.compose.material.Switch
@@ -34,8 +35,8 @@ fun SwitchPreference(
                 preferences.sharedPreferences.edit().putBoolean(key, it).apply()
             })
         },
-        onClick = {
+        modifier = Modifier.clickable(onClick = {
             preferences.sharedPreferences.edit().putBoolean(key, !state).apply()
-        }
+        })
     )
 }

@@ -13,7 +13,8 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.state
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.VectorAsset
 import androidx.compose.ui.unit.dp
@@ -33,7 +34,7 @@ fun MultiSelectListPreference(
     val preferences = AmbientPreferences.current
     val selected by preferences.getStringSet(key = key, defaultValue).asFlow()
         .collectAsState(initial = defaultValue)
-    val showDialog = state { false }
+    val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }
     val descripion = entries.filter { selected.contains(it.key) }.map { it.value }
         .joinToString(separator = ", ", limit = 3)
@@ -50,7 +51,7 @@ fun MultiSelectListPreference(
 
     if (showDialog.value) {
         AlertDialog(
-            onCloseRequest = { closeDialog() },
+            onDismissRequest = { closeDialog() },
             title = { Text(text = title) },
             text = {
                 entries.forEach {

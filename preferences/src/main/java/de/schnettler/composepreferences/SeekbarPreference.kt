@@ -11,14 +11,14 @@ import androidx.compose.material.ListItem
 import androidx.compose.material.Slider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.state
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.VectorAsset
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlin.math.roundToInt
 
 @ExperimentalCoroutinesApi
 @Composable
@@ -34,7 +34,7 @@ fun SeekBarPreference(
     valueRepresentation: (Float) -> String
 ) {
     val preferences = AmbientPreferences.current
-    var sliderValue by state { preferences.getFloat(key, defaultValue).get() }
+    var sliderValue by remember { mutableStateOf(preferences.getFloat(key, defaultValue).get()) }
     ListItem(
         text = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
         secondaryText = {

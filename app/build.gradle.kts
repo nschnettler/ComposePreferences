@@ -26,8 +26,8 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "0.1.0-dev16"
-        kotlinCompilerVersion = "1.4.0-rc"
+        kotlinCompilerExtensionVersion = "0.1.0-dev17"
+        kotlinCompilerVersion = "1.4.0"
     }
     kotlinOptions {
         freeCompilerArgs += listOf(
@@ -42,12 +42,11 @@ android {
 dependencies {
     implementation(project(":preferences"))
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.0-rc")
     implementation("androidx.core:core-ktx:1.3.1")
-    implementation("androidx.appcompat:appcompat:1.1.0")
+    implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.2.0")
-    implementation("androidx.compose.foundation:foundation-layout:0.1.0-dev16")
-    implementation("androidx.compose.material:material:0.1.0-dev16")
-    implementation("androidx.ui:ui-tooling:0.1.0-dev16")
+    implementation("androidx.compose.foundation:foundation-layout:0.1.0-dev17")
+    implementation("androidx.compose.material:material:0.1.0-dev17")
+    implementation("androidx.ui:ui-tooling:0.1.0-dev17")
     implementation("androidx.preference:preference-ktx:1.1.1")
 }
