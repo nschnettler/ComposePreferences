@@ -9,6 +9,9 @@ import androidx.compose.material.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.VectorAsset
 import androidx.compose.ui.unit.dp
@@ -24,19 +27,21 @@ fun SwitchPreference(
     icon: VectorAsset,
     defaultValue: Boolean = false
 ) {
+    var isInitialValue by remember { mutableStateOf(true) }
     val preferences = AmbientPreferences.current
+    val onClicked: (Boolean) -> Unit = {
+        if (!isInitialValue) {
+            preferences.sharedPreferences.edit().putBoolean(key, it).apply()
+        } else {
+            isInitialValue = false
+        }
+    }
     val state by preferences.getBoolean(key, defaultValue).asFlow().collectAsState(initial = defaultValue)
     ListItem(
         text = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
         secondaryText = { Text(text = summary) },
         icon = { Icon(asset = icon, modifier = Modifier.size(40.dp)) },
-        trailing = {
-            Switch(checked = state, onCheckedChange = {
-                preferences.sharedPreferences.edit().putBoolean(key, it).apply()
-            })
-        },
-        modifier = Modifier.clickable(onClick = {
-            preferences.sharedPreferences.edit().putBoolean(key, !state).apply()
-        })
+        trailing = { Switch(checked = state, onCheckedChange = { onClicked(it) }) },
+        modifier = Modifier.clickable(onClick = { onClicked(!state) })
     )
 }
