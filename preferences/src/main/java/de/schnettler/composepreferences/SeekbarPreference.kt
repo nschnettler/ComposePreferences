@@ -29,6 +29,7 @@ fun SeekBarPreference(
     defaultValue: Float,
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
     steps: Int = 0,
+    enabled: Boolean = true,
     valueRepresentation: (Float) -> String
 ) {
     val preferences = PreferenceAmbient.current
@@ -38,14 +39,24 @@ fun SeekBarPreference(
         title = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
         summary = {
             PreferenceSummary(summary, valueRepresentation, sliderValue, { sliderValue = it }, valueRange, steps,
-                preferences, key)
+                preferences, key, enabled)
         },
-        icon = icon)
+        icon = icon,
+        enabled = enabled,
+    )
 }
 
 @Composable
-private fun PreferenceSummary(summary: String, valueRepresentation: (Float) -> String, sliderValue: Float, onValueChanged:
-(Float) -> Unit, valueRange: ClosedFloatingPointRange<Float>, steps: Int, preferences: FlowSharedPreferences, key: String) {
+private fun PreferenceSummary(
+    summary: String,
+    valueRepresentation: (Float) -> String,
+    sliderValue: Float,
+    onValueChanged: (Float) -> Unit,
+    valueRange: ClosedFloatingPointRange<Float>,
+    steps: Int, preferences: FlowSharedPreferences,
+    key: String,
+    enabled: Boolean,
+) {
     Column {
         Text(text = summary)
         Row(verticalGravity = Alignment.CenterVertically) {
@@ -53,7 +64,7 @@ private fun PreferenceSummary(summary: String, valueRepresentation: (Float) -> S
             Spacer(modifier = Modifier.width(16.dp))
             Slider(
                 value = sliderValue,
-                onValueChange = { onValueChanged(it) },
+                onValueChange = { if (enabled) onValueChanged(it) },
                 valueRange = valueRange,
                 steps = steps,
                 onValueChangeEnd = {

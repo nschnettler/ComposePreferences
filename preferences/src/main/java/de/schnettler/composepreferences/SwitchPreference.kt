@@ -18,7 +18,8 @@ fun SwitchPreference(
     key: String,
     singleLineTitle: Boolean,
     icon: VectorAsset,
-    defaultValue: Boolean = false
+    defaultValue: Boolean = false,
+    enabled: Boolean = true,
 ) {
     var isInitialValue by remember { mutableStateOf(true) }
     val preferences = PreferenceAmbient.current
@@ -36,8 +37,9 @@ fun SwitchPreference(
         summary = summary,
         singleLineTitle = singleLineTitle,
         icon = icon,
+        enabled = enabled,
         onClick = { onClicked(!state) }
     ) {
-        Switch(checked = state, onCheckedChange = { onClicked(it) })
+        Switch(checked = state, onCheckedChange = { onClicked(it) }, enabled = enabled)
     }
 }

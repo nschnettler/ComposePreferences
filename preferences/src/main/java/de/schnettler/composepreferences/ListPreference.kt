@@ -28,7 +28,8 @@ fun ListPreference(
     singleLineTitle: Boolean,
     icon: VectorAsset,
     entries: Map<String, String>,
-    defaultValue: String = ""
+    defaultValue: String = "",
+    enabled: Boolean = true,
 ) {
     val preferences = PreferenceAmbient.current
     val selected by preferences.getString(key = key, defaultValue).asFlow().collectAsState(initial = defaultValue)
@@ -40,6 +41,7 @@ fun ListPreference(
         summary = entries[selected] ?: summary,
         singleLineTitle = singleLineTitle,
         icon = icon,
+        enabled = enabled,
         onClick = { showDialog.value = true },
     )
 

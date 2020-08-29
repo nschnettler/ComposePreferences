@@ -29,7 +29,8 @@ fun MultiSelectListPreference(
     singleLineTitle: Boolean,
     icon: VectorAsset,
     entries: Map<String, String>,
-    defaultValue: Set<String> = emptySet()
+    defaultValue: Set<String> = emptySet(),
+    enabled: Boolean = true,
 ) {
     val preferences = PreferenceAmbient.current
     val selected by preferences.getStringSet(key = key, defaultValue).asFlow()
@@ -44,6 +45,7 @@ fun MultiSelectListPreference(
         summary = if (descripion.isNotBlank()) descripion else summary,
         singleLineTitle = singleLineTitle,
         icon = icon,
+        enabled = enabled,
         onClick = { showDialog.value = true }
     )
 
