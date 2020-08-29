@@ -8,13 +8,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Providers
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun PreferenceGroup(title: String, content: @Composable () -> Unit) {
+fun PreferenceGroup(title: String, enabled: Boolean = true, content: @Composable () -> Unit) {
     Column {
         Box(
             gravity = ContentGravity.CenterStart,
@@ -25,6 +26,8 @@ fun PreferenceGroup(title: String, content: @Composable () -> Unit) {
                 modifier = Modifier.padding(start = 16.dp)
             )
         }
-        content()
+        Providers(PreferenceEnabledAmbient provides enabled) {
+            content()
+        }
     }
 }

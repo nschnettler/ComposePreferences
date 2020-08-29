@@ -42,12 +42,10 @@ fun MultiSelectListPreference(
     Preference(
         title = title,
         summary = if (descripion.isNotBlank()) descripion else summary,
-        key = key,
         singleLineTitle = singleLineTitle,
-        icon = icon
-    ) {
-        showDialog.value = true
-    }
+        icon = icon,
+        onClick = { showDialog.value = true }
+    )
 
     if (showDialog.value) {
         AlertDialog(

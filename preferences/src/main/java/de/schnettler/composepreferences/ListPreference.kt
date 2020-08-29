@@ -38,12 +38,10 @@ fun ListPreference(
     Preference(
         title = title,
         summary = entries[selected] ?: summary,
-        key = key,
         singleLineTitle = singleLineTitle,
-        icon = icon
-    ) {
-        showDialog.value = true
-    }
+        icon = icon,
+        onClick = { showDialog.value = true },
+    )
 
     if (showDialog.value) {
         AlertDialog(
