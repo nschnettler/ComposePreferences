@@ -30,7 +30,7 @@ fun ListPreference(
     entries: Map<String, String>,
     defaultValue: String = ""
 ) {
-    val preferences = AmbientPreferences.current
+    val preferences = PreferenceAmbient.current
     val selected by preferences.getString(key = key, defaultValue).asFlow().collectAsState(initial = defaultValue)
     val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }

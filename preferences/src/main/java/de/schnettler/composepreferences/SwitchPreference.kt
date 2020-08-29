@@ -28,7 +28,7 @@ fun SwitchPreference(
     defaultValue: Boolean = false
 ) {
     var isInitialValue by remember { mutableStateOf(true) }
-    val preferences = AmbientPreferences.current
+    val preferences = PreferenceAmbient.current
     val onClicked: (Boolean) -> Unit = {
         if (!isInitialValue) {
             preferences.sharedPreferences.edit().putBoolean(key, it).apply()

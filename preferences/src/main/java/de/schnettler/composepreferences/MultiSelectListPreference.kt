@@ -31,7 +31,7 @@ fun MultiSelectListPreference(
     entries: Map<String, String>,
     defaultValue: Set<String> = emptySet()
 ) {
-    val preferences = AmbientPreferences.current
+    val preferences = PreferenceAmbient.current
     val selected by preferences.getStringSet(key = key, defaultValue).asFlow()
         .collectAsState(initial = defaultValue)
     val showDialog = remember { mutableStateOf(false) }

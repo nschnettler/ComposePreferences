@@ -33,7 +33,7 @@ fun SeekBarPreference(
     steps: Int = 0,
     valueRepresentation: (Float) -> String
 ) {
-    val preferences = AmbientPreferences.current
+    val preferences = PreferenceAmbient.current
     var sliderValue by remember { mutableStateOf(preferences.getFloat(key, defaultValue).get()) }
     ListItem(
         text = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
