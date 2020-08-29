@@ -23,12 +23,13 @@ fun Preference(
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
 ) {
-    StatusWrapper(enabled = enabled) {
+    val isEnabled = PreferenceEnabledAmbient.current && enabled
+    StatusWrapper(enabled = isEnabled) {
         ListItem(
             text = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
             secondaryText = { Text(text = summary) },
             icon = { Icon(asset = icon, modifier = Modifier.size(40.dp)) },
-            modifier = Modifier.clickable(onClick = { if (enabled) onClick() }),
+            modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
             trailing = trailing,
         )
     }
@@ -43,12 +44,13 @@ fun Preference(
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
 ) {
-    StatusWrapper(enabled = enabled) {
+    val isEnabled = PreferenceEnabledAmbient.current && enabled
+    StatusWrapper(enabled = isEnabled) {
         ListItem(
             text = title,
             secondaryText = summary,
             icon = { Icon(asset = icon, modifier = Modifier.size(40.dp)) },
-            modifier = Modifier.clickable(onClick = { if (enabled) onClick() }),
+            modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
             trailing = trailing,
         )
     }

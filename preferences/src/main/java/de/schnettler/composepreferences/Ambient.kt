@@ -1,5 +1,7 @@
 package de.schnettler.composepreferences
 
+import androidx.compose.foundation.ContentColorAmbient
+import androidx.compose.foundation.contentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ProvidableAmbient
 import androidx.compose.runtime.Providers
@@ -21,3 +23,6 @@ fun ProvidePreferences(
         content()
     }
 }
+
+val PreferenceEnabledAmbient: ProvidableAmbient<Boolean> =
+    ambientOf { true }
