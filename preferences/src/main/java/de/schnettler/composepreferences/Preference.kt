@@ -48,7 +48,7 @@ fun Preference(
             text = title,
             secondaryText = summary,
             icon = { Icon(asset = icon, modifier = Modifier.size(40.dp)) },
-            modifier = Modifier.clickable(onClick = { onClick() }),
+            modifier = Modifier.clickable(onClick = { if (enabled) onClick() }),
             trailing = trailing,
         )
     }
