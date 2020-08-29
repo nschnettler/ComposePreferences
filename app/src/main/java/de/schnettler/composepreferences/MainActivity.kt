@@ -6,17 +6,11 @@ import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.Text
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
-import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Warning
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Providers
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.setContent
-import androidx.preference.PreferenceManager
-import androidx.ui.tooling.preview.Preview
 import com.tfcporciuncula.flow.FlowSharedPreferences
 import de.schnettler.composepreferences.ui.ComposePreferencesTheme
 
@@ -24,20 +18,20 @@ class MainActivity : AppCompatActivity() {
     @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPreferences = FlowSharedPreferences(this.defaultSharedPrefs())
+
         setContent {
             ComposePreferencesTheme {
-                // A surface container using the 'background' color from the theme
-                Providers(AmbientPreferences provides FlowSharedPreferences(PreferenceManager.getDefaultSharedPreferences(this))) {
-                    val snackbarHostState = remember { SnackbarHostState() }
+                ProvidePreferences(sharedPreferences = sharedPreferences) {
                     Scaffold(
-                        scaffoldState = rememberScaffoldState(snackbarHostState = snackbarHostState),
                         topBar = {
                             TopAppBar(
                                 title = { Text(text = "Compose Preferences") }
                             )
                         },
                         bodyContent = {
-                            PreferenceScreen(snackbarHostState)
+                            PreferenceScreen()
                         }
                     )
                 }
@@ -46,8 +40,8 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-@ExperimentalMaterialApi
-@Composable fun PreferenceScreen(snackbarHostState: SnackbarHostState) {
+@Composable
+fun PreferenceScreen() {
     ScrollableColumn {
         SwitchPreference(
             title = "Switch Preference",
@@ -87,20 +81,7 @@ class MainActivity : AppCompatActivity() {
             icon = Icons.Outlined.Warning,
             steps = 4,
             valueRange = 50F..100F,
-            valueRepresentation = { a -> "" }
+            valueRepresentation = { value -> "$value %" }
         )
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ComposePreferencesTheme {
-        Greeting("Android")
     }
 }
