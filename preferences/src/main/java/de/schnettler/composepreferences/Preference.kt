@@ -19,7 +19,7 @@ fun Preference(
     summary: String,
     singleLineTitle: Boolean,
     icon: VectorAsset,
-    enabled: Boolean,
+    enabled: Boolean = true,
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
 ) {
@@ -40,7 +40,7 @@ fun Preference(
     title: @Composable () -> Unit,
     summary: @Composable () -> Unit,
     icon: VectorAsset,
-    enabled: Boolean,
+    enabled: Boolean = true,
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
 ) {

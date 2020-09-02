@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.setContent
 import com.tfcporciuncula.flow.FlowSharedPreferences
 import de.schnettler.composepreferences.ui.ComposePreferencesTheme
+import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
     @OptIn(ExperimentalMaterialApi::class)
@@ -48,11 +49,12 @@ fun PreferenceScreen() {
             summary = "A preference with a switch.",
             key = "pref_switch",
             singleLineTitle = true,
-            icon = Icons.Outlined.Warning
+            icon = Icons.Outlined.Warning,
         )
 
 
-        PreferenceGroup(title = "List Group") {
+
+        PreferenceGroup(title = "List Group", enabled = false) {
             ListPreference(
                 title = "List Preference",
                 summary = "Select one item from a list in a dialog",
@@ -62,7 +64,7 @@ fun PreferenceScreen() {
                 entries = mapOf(
                     "key1" to "Item1",
                     "key2" to "Item2"
-                )
+                ),
             )
             MultiSelectListPreference(
                 title = "MultiSelect List Preference",
@@ -73,7 +75,7 @@ fun PreferenceScreen() {
                 entries = mapOf(
                     "key1" to "Item1",
                     "key2" to "Item2"
-                )
+                ),
             )
         }
 
@@ -87,7 +89,7 @@ fun PreferenceScreen() {
                 icon = Icons.Outlined.Warning,
                 steps = 4,
                 valueRange = 50F..100F,
-                valueRepresentation = { value -> "$value %" }
+                valueRepresentation = { value -> "${value.roundToInt()} %" }
             )
         }
     }
