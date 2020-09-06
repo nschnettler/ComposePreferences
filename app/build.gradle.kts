@@ -5,7 +5,6 @@ plugins {
 
 android {
     compileSdkVersion(30)
-    buildToolsVersion("30.0.1")
 
     defaultConfig {
         applicationId = "de.schnettler.composepreferences"
@@ -27,7 +26,7 @@ android {
     }
     composeOptions {
         kotlinCompilerVersion = "1.4.0"
-        kotlinCompilerExtensionVersion = "1.0.0-alpha01"
+        kotlinCompilerExtensionVersion = "1.0.0-alpha02"
     }
     kotlinOptions {
         freeCompilerArgs += listOf(
@@ -43,5 +42,5 @@ dependencies {
     implementation(project(":preferences"))
 
     implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.compose.material:material:1.0.0-alpha01")
+    implementation("androidx.compose.material:material:1.0.0-alpha02")
 }
