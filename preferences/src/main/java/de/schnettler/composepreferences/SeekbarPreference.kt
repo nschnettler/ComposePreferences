@@ -59,7 +59,7 @@ private fun PreferenceSummary(
 ) {
     Column {
         Text(text = summary)
-        Row(verticalGravity = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Text(text = valueRepresentation(sliderValue))
             Spacer(modifier = Modifier.width(16.dp))
             Slider(

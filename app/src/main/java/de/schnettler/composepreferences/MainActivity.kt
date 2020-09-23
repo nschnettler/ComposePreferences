@@ -54,7 +54,7 @@ fun PreferenceScreen() {
 
 
 
-        PreferenceGroup(title = "List Group", enabled = false) {
+        PreferenceGroup(title = "List Group", enabled = true) {
             ListPreference(
                 title = "List Preference",
                 summary = "Select one item from a list in a dialog",

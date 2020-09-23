@@ -21,14 +21,9 @@ fun SwitchPreference(
     defaultValue: Boolean = false,
     enabled: Boolean = true,
 ) {
-    var isInitialValue by remember { mutableStateOf(true) }
     val preferences = PreferenceAmbient.current
     val onClicked: (Boolean) -> Unit = {
-        if (!isInitialValue) {
-            preferences.sharedPreferences.edit().putBoolean(key, it).apply()
-        } else {
-            isInitialValue = false
-        }
+        preferences.sharedPreferences.edit().putBoolean(key, it).apply()
     }
     val state by preferences.getBoolean(key, defaultValue).asFlow().collectAsState(initial = defaultValue)
 
