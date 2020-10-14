@@ -2,14 +2,12 @@ package de.schnettler.composepreferences
 
 import androidx.compose.foundation.Box
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Checkbox
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -54,35 +52,34 @@ fun MultiSelectListPreference(
             onDismissRequest = { closeDialog() },
             title = { Text(text = title) },
             text = {
-                entries.forEach {
-                    val isSelected = selected.contains(it.key)
-                    val onSelectionChanged = {
-                        val result = when (!isSelected) {
-                            true -> selected + it.key
-                            false -> selected - it.key
-                        }
-                        preferences.sharedPreferences.edit().putStringSet(key, result).apply()
-                    }
-                    Box(
-                        modifier = Modifier.selectable(
-                            selected = isSelected,
-                            onClick = { onSelectionChanged() }
-                        ),
-                        children = {
-                            Box {
-                                Row(Modifier.fillMaxWidth().padding(16.dp)) {
-                                    Checkbox(checked = isSelected, onCheckedChange = {
-                                        onSelectionChanged()
-                                    })
-                                    Text(
-                                        text = it.value,
-                                        style = MaterialTheme.typography.body1.merge(),
-                                        modifier = Modifier.padding(start = 16.dp)
-                                    )
-                                }
+                Column {
+                    entries.forEach { current ->
+                        val isSelected = selected.contains(current.key)
+                        val onSelectionChanged = {
+                            val result = when (!isSelected) {
+                                true -> selected + current.key
+                                false -> selected - current.key
                             }
+                            preferences.sharedPreferences.edit().putStringSet(key, result).apply()
                         }
-                    )
+                        Row(Modifier
+                            .fillMaxWidth()
+                            .selectable(
+                                selected = isSelected,
+                                onClick = { onSelectionChanged() }
+                            )
+                            .padding(16.dp)
+                        ) {
+                            Checkbox(checked = isSelected, onCheckedChange = {
+                                onSelectionChanged()
+                            })
+                            Text(
+                                text = current.value,
+                                style = MaterialTheme.typography.body1.merge(),
+                                modifier = Modifier.padding(start = 16.dp)
+                            )
+                        }
+                    }
                 }
             },
             confirmButton = {

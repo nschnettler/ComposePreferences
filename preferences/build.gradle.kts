@@ -21,7 +21,7 @@ android {
     }
     composeOptions {
         kotlinCompilerVersion = "1.4.0"
-        kotlinCompilerExtensionVersion = "1.0.0-alpha03"
+        kotlinCompilerExtensionVersion = "1.0.0-alpha04"
     }
     kotlinOptions {
         freeCompilerArgs += listOf(
@@ -34,8 +34,8 @@ android {
 
 dependencies {
     // Compose
-    implementation("androidx.compose.material:material:1.0.0-alpha03")
+    implementation("androidx.compose.material:material:1.0.0-alpha04")
 
     // Preferences
-    api("com.github.tfcporciuncula:flow-preferences:1.3.1")
+    api("com.github.tfcporciuncula:flow-preferences:1.3.2")
 }
