@@ -1,6 +1,5 @@
 package de.schnettler.composepreferences
 
-import androidx.compose.foundation.Box
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,7 +29,7 @@ fun MultiSelectListPreference(
     defaultValue: Set<String> = emptySet(),
     enabled: Boolean = true,
 ) {
-    val preferences = PreferenceAmbient.current
+    val preferences = AmbientPreference.current
     val selected by preferences.getStringSet(key = key, defaultValue).asFlow()
         .collectAsState(initial = defaultValue)
     val showDialog = remember { mutableStateOf(false) }

@@ -32,7 +32,7 @@ fun SeekBarPreference(
     enabled: Boolean = true,
     valueRepresentation: (Float) -> String
 ) {
-    val preferences = PreferenceAmbient.current
+    val preferences = AmbientPreference.current
     var sliderValue by remember { mutableStateOf(preferences.getFloat(key, defaultValue).get()) }
 
     Preference(

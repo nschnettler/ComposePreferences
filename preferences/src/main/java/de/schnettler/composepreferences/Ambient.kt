@@ -1,7 +1,5 @@
 package de.schnettler.composepreferences
 
-import androidx.compose.foundation.ContentColorAmbient
-import androidx.compose.foundation.contentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ProvidableAmbient
 import androidx.compose.runtime.Providers
@@ -10,7 +8,7 @@ import com.tfcporciuncula.flow.FlowSharedPreferences
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-val PreferenceAmbient: ProvidableAmbient<FlowSharedPreferences> =
+val AmbientPreference: ProvidableAmbient<FlowSharedPreferences> =
     ambientOf { error("No preferences found") }
 
 @ExperimentalCoroutinesApi
@@ -19,10 +17,10 @@ fun ProvidePreferences(
     sharedPreferences: FlowSharedPreferences,
     content: @Composable () -> Unit
 ) {
-    Providers(PreferenceAmbient provides sharedPreferences) {
+    Providers(AmbientPreference provides sharedPreferences) {
         content()
     }
 }
 
-val PreferenceEnabledAmbient: ProvidableAmbient<Boolean> =
+val AmbientPreferenceEnabled: ProvidableAmbient<Boolean> =
     ambientOf { true }

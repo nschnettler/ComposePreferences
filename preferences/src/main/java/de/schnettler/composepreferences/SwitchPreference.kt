@@ -4,9 +4,6 @@ import androidx.compose.material.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.VectorAsset
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -21,7 +18,7 @@ fun SwitchPreference(
     defaultValue: Boolean = false,
     enabled: Boolean = true,
 ) {
-    val preferences = PreferenceAmbient.current
+    val preferences = AmbientPreference.current
     val onClicked: (Boolean) -> Unit = {
         preferences.sharedPreferences.edit().putBoolean(key, it).apply()
     }
