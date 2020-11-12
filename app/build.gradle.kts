@@ -26,7 +26,7 @@ android {
     }
     composeOptions {
         kotlinCompilerVersion = "1.4.0"
-        kotlinCompilerExtensionVersion = "1.0.0-alpha06"
+        kotlinCompilerExtensionVersion = "1.0.0-alpha07"
     }
     kotlinOptions {
         freeCompilerArgs += listOf(
@@ -41,6 +41,5 @@ android {
 dependencies {
     implementation(project(":preferences"))
 
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.compose.material:material:1.0.0-alpha06")
+    implementation(AndroidX.appCompat)
 }
