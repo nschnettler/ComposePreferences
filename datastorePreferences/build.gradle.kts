@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
 }
 
@@ -7,13 +7,8 @@ android {
     compileSdkVersion(30)
 
     defaultConfig {
-        applicationId = "de.schnettler.composepreferences"
         minSdkVersion(21)
-        targetSdkVersion(30)
-        versionCode = 1
-        versionName = "1.0"
     }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -32,15 +27,15 @@ android {
         freeCompilerArgs += listOf(
             "-Xopt-in=kotlin.RequiresOptIn",
             "-Xallow-jvm-ir-dependencies",
-            "-Xskip-prerelease-check",
-            "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+            "-Xskip-prerelease-check"
         )
     }
 }
 
 dependencies {
-    implementation(project(":preferences"))
-    implementation(project(":datastorePreferences"))
+    // Compose
+    api(AndroidX.compose.material)
 
-    implementation(AndroidX.appCompat)
+    // Preferences
+    api("androidx.datastore:datastore-preferences:_")
 }

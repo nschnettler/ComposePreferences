@@ -3,6 +3,7 @@ import de.fayard.refreshVersions.bootstrapRefreshVersions
 rootProject.name = "ComposePreferences"
 include(":app")
 include(":preferences")
+include(":datastorePreferences")
 
 
 buildscript {
