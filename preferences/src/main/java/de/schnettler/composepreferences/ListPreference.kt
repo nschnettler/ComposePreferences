@@ -15,7 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.VectorAsset
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -26,7 +26,7 @@ fun ListPreference(
     summary: String,
     key: String,
     singleLineTitle: Boolean,
-    icon: VectorAsset,
+    icon: ImageVector,
     entries: Map<String, String>,
     defaultValue: String = "",
     enabled: Boolean = true,

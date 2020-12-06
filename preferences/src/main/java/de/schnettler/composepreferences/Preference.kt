@@ -6,7 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Providers
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.VectorAsset
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -14,7 +14,7 @@ fun Preference(
     title: String,
     summary: String,
     singleLineTitle: Boolean,
-    icon: VectorAsset,
+    icon: ImageVector,
     enabled: Boolean = true,
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
@@ -24,7 +24,7 @@ fun Preference(
         ListItem(
             text = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
             secondaryText = { Text(text = summary) },
-            icon = { Icon(asset = icon, modifier = Modifier.size(40.dp)) },
+            icon = { Icon(imageVector = icon, modifier = Modifier.size(40.dp)) },
             modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
             trailing = trailing,
         )
@@ -35,7 +35,7 @@ fun Preference(
 fun Preference(
     title: @Composable () -> Unit,
     summary: @Composable () -> Unit,
-    icon: VectorAsset,
+    icon: ImageVector,
     enabled: Boolean = true,
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
@@ -45,7 +45,7 @@ fun Preference(
         ListItem(
             text = title,
             secondaryText = summary,
-            icon = { Icon(asset = icon, modifier = Modifier.size(40.dp)) },
+            icon = { Icon(imageVector = icon, modifier = Modifier.size(40.dp)) },
             modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
             trailing = trailing,
         )

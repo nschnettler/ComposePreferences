@@ -1,7 +1,6 @@
 package de.schnettler.datastorepreferences
 
-import androidx.compose.ui.graphics.vector.VectorAsset
-import androidx.datastore.preferences.Preferences
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.datastore.preferences.preferencesKey
 import androidx.datastore.preferences.preferencesSetKey
 
@@ -12,7 +11,7 @@ interface PreferenceItem<T> : BasePreferenceItem {
     val summary: String
     val key: String
     val singleLineTitle: Boolean
-    val icon: VectorAsset
+    val icon: ImageVector
     val enabled: Boolean
 }
 
@@ -25,7 +24,7 @@ data class SwitchPreferenceItem(
     override val summary: String,
     override val key: String,
     override val singleLineTitle: Boolean,
-    override val icon: VectorAsset,
+    override val icon: ImageVector,
     override val enabled: Boolean = true,
     val defaultValue: Boolean = false,
 ): PreferenceItem<Boolean> {
@@ -37,7 +36,7 @@ data class SingleListPreferenceItem(
     override val summary: String,
     override val key: String,
     override val singleLineTitle: Boolean,
-    override val icon: VectorAsset,
+    override val icon: ImageVector,
     override val enabled: Boolean = true,
     override val entries: Map<String, String>,
     val defaultValue: String = "",
@@ -50,7 +49,7 @@ data class MultiListPreferenceItem(
     override val summary: String,
     override val key: String,
     override val singleLineTitle: Boolean,
-    override val icon: VectorAsset,
+    override val icon: ImageVector,
     override val enabled: Boolean = true,
     override val entries: Map<String, String>,
     val defaultValue: Set<String> = emptySet()
@@ -63,7 +62,7 @@ data class SeekbarPreferenceItem(
     override val summary: String,
     override val key: String,
     override val singleLineTitle: Boolean,
-    override val icon: VectorAsset,
+    override val icon: ImageVector,
     override val enabled: Boolean = true,
     val defaultValue: Float = 0F,
     val valueRange: ClosedFloatingPointRange<Float> = 0f..1f,

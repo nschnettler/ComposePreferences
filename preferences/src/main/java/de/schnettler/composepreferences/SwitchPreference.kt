@@ -4,7 +4,7 @@ import androidx.compose.material.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.vector.VectorAsset
+import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -14,7 +14,7 @@ fun SwitchPreference(
     summary: String,
     key: String,
     singleLineTitle: Boolean,
-    icon: VectorAsset,
+    icon: ImageVector,
     defaultValue: Boolean = false,
     enabled: Boolean = true,
 ) {

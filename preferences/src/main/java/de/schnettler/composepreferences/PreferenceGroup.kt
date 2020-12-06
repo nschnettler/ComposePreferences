@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 fun PreferenceGroup(title: String, enabled: Boolean = true, content: @Composable () -> Unit) {
     Column {
         Box(
-            alignment = Alignment.CenterStart,
+            contentAlignment = Alignment.CenterStart,
             modifier = Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 8.dp)
         ) {
             Text(
