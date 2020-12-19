@@ -84,7 +84,7 @@ fun MultiSelectListPreference(
             confirmButton = {
                 TextButton(
                     onClick = { closeDialog() },
-                    colors = ButtonConstants.defaultTextButtonColors(contentColor = MaterialTheme.colors.secondary),
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.secondary),
                 ) {
                     Text(text = "Select")
                 }

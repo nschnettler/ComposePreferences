@@ -46,6 +46,7 @@ fun SeekBarPreference(
     )
 }
 
+@ExperimentalCoroutinesApi
 @Composable
 private fun PreferenceSummary(
     summary: String,
