@@ -24,7 +24,7 @@ fun Preference(
         ListItem(
             text = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
             secondaryText = { Text(text = summary) },
-            icon = { Icon(imageVector = icon, modifier = Modifier.size(40.dp)) },
+            icon = { Icon(imageVector = icon, null, modifier = Modifier.size(40.dp)) },
             modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
             trailing = trailing,
         )
@@ -45,7 +45,7 @@ fun Preference(
         ListItem(
             text = title,
             secondaryText = summary,
-            icon = { Icon(imageVector = icon, modifier = Modifier.size(40.dp)) },
+            icon = { Icon(imageVector = icon, null, modifier = Modifier.size(40.dp)) },
             modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
             trailing = trailing,
         )

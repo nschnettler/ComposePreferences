@@ -25,8 +25,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerVersion = "1.4.21"
-        kotlinCompilerExtensionVersion = "1.0.0-alpha09"
+        kotlinCompilerExtensionVersion = "1.0.0-alpha11"
     }
     kotlinOptions {
         freeCompilerArgs += listOf(

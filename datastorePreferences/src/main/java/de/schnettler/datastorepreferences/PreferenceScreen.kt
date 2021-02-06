@@ -3,6 +3,7 @@ package de.schnettler.datastorepreferences
 import android.content.Context
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
 import androidx.datastore.DataStore
 import androidx.datastore.preferences.Preferences
@@ -21,7 +22,7 @@ fun PreferenceScreen(context: Context, items: List<BasePreferenceItem>) {
     val prefs by dataStore.data.collectAsState(initial = null)
 
     LazyColumn {
-        items(items = items, itemContent = { item ->
+        items(items = items){ item ->
             when (item) {
                 is SwitchPreferenceItem -> {
                     SwitchPreference(
@@ -63,6 +64,6 @@ fun PreferenceScreen(context: Context, items: List<BasePreferenceItem>) {
                     )
                 }
             }
-        })
+        }
     }
 }
