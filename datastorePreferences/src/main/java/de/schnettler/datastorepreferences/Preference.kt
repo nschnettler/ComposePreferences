@@ -8,6 +8,7 @@ import androidx.compose.runtime.Providers
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+@ExperimentalMaterialApi
 @Composable
 fun Preference(
     item: PreferenceItem<*>,
@@ -26,6 +27,7 @@ fun Preference(
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun Preference(
     item: PreferenceItem<*>,
@@ -46,7 +48,7 @@ fun Preference(
 
 @Composable
 fun StatusWrapper(enabled: Boolean = true, content: @Composable () -> Unit) {
-    Providers(AmbientContentAlpha provides if (enabled) ContentAlpha.high else ContentAlpha.disabled) {
+    Providers(LocalContentAlpha provides if (enabled) ContentAlpha.high else ContentAlpha.disabled) {
         content()
     }
 }

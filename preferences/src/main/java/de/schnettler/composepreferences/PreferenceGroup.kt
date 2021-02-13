@@ -26,7 +26,7 @@ fun PreferenceGroup(title: String, enabled: Boolean = true, content: @Composable
                 modifier = Modifier.padding(start = 16.dp)
             )
         }
-        Providers(AmbientPreferenceEnabled provides enabled) {
+        Providers(LocalPreferenceEnabledStatus provides enabled) {
             content()
         }
     }

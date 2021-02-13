@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
 fun MultiSelectListPreference(
@@ -29,7 +30,7 @@ fun MultiSelectListPreference(
     defaultValue: Set<String> = emptySet(),
     enabled: Boolean = true,
 ) {
-    val preferences = AmbientPreference.current
+    val preferences = LocalPreferences.current
     val selected by preferences.getStringSet(key = key, defaultValue).asFlow()
         .collectAsState(initial = defaultValue)
     val showDialog = remember { mutableStateOf(false) }

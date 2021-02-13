@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.datastore.DataStore
 import androidx.datastore.preferences.Preferences
@@ -13,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
+@ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
 fun PreferenceScreen(context: Context, items: List<BasePreferenceItem>) {

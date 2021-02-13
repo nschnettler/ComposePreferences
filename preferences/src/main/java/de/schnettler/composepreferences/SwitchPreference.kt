@@ -1,5 +1,6 @@
 package de.schnettler.composepreferences
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -7,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
 fun SwitchPreference(
@@ -18,7 +20,7 @@ fun SwitchPreference(
     defaultValue: Boolean = false,
     enabled: Boolean = true,
 ) {
-    val preferences = AmbientPreference.current
+    val preferences = LocalPreferences.current
     val onClicked: (Boolean) -> Unit = {
         preferences.sharedPreferences.edit().putBoolean(key, it).apply()
     }

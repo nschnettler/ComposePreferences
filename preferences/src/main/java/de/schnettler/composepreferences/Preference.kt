@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
+@ExperimentalMaterialApi
 @Composable
 fun Preference(
     title: String,
@@ -19,7 +20,7 @@ fun Preference(
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
 ) {
-    val isEnabled = AmbientPreferenceEnabled.current && enabled
+    val isEnabled = LocalPreferenceEnabledStatus.current && enabled
     StatusWrapper(enabled = isEnabled) {
         ListItem(
             text = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
@@ -31,6 +32,7 @@ fun Preference(
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun Preference(
     title: @Composable () -> Unit,
@@ -40,7 +42,7 @@ fun Preference(
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
 ) {
-    val isEnabled = AmbientPreferenceEnabled.current && enabled
+    val isEnabled = LocalPreferenceEnabledStatus.current && enabled
     StatusWrapper(enabled = isEnabled) {
         ListItem(
             text = title,
@@ -55,7 +57,7 @@ fun Preference(
 
 @Composable
 fun StatusWrapper(enabled: Boolean = true, content: @Composable () -> Unit) {
-    Providers(AmbientContentAlpha provides if (enabled) ContentAlpha.high else ContentAlpha.disabled) {
+    Providers(LocalContentAlpha provides if (enabled) ContentAlpha.high else ContentAlpha.disabled) {
         content()
     }
 }

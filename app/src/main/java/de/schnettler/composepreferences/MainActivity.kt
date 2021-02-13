@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun PreferenceScreen() {
     ScrollableColumn {

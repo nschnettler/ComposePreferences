@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Slider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.tfcporciuncula.flow.FlowSharedPreferences
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
 fun SeekBarPreference(
@@ -32,7 +34,7 @@ fun SeekBarPreference(
     enabled: Boolean = true,
     valueRepresentation: (Float) -> String
 ) {
-    val preferences = AmbientPreference.current
+    val preferences = LocalPreferences.current
     var sliderValue by remember { mutableStateOf(preferences.getFloat(key, defaultValue).get()) }
 
     Preference(

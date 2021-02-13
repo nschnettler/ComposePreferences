@@ -1,14 +1,11 @@
 package de.schnettler.composepreferences
 
-import androidx.compose.material.Text
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.RadioButton
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,6 +16,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
 fun ListPreference(
@@ -31,7 +29,7 @@ fun ListPreference(
     defaultValue: String = "",
     enabled: Boolean = true,
 ) {
-    val preferences = AmbientPreference.current
+    val preferences = LocalPreferences.current
     val selected by preferences.getString(key = key, defaultValue).asFlow().collectAsState(initial = defaultValue)
     val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }
