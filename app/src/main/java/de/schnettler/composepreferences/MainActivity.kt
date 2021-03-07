@@ -1,20 +1,27 @@
 package de.schnettler.composepreferences
 
+import android.content.Context
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.material.Text
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.outlined.Warning
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.setContent
-import com.tfcporciuncula.flow.FlowSharedPreferences
+import androidx.compose.ui.platform.LocalContext
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.preferencesDataStore
 import de.schnettler.composepreferences.ui.ComposePreferencesTheme
-import de.schnettler.datastorepreferences.*
+import de.schnettler.datastore.compose.PreferenceScreen
+import de.schnettler.datastore.compose.model.MultiListPreferenceItem
+import de.schnettler.datastore.compose.model.SeekbarPreferenceItem
+import de.schnettler.datastore.compose.model.SingleListPreferenceItem
+import de.schnettler.datastore.compose.model.SwitchPreferenceItem
+import de.schnettler.datastore.manager.DataStoreManager
+import de.schnettler.datastorepreferences.ProvideDataStoreManager
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
@@ -22,31 +29,29 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val sharedPreferences = FlowSharedPreferences(this.defaultSharedPrefs())
-
         setContent {
             ComposePreferencesTheme {
-                ProvidePreferences(sharedPreferences = sharedPreferences) {
+                ProvideDataStoreManager(dataStoreManager = DataStoreManager(LocalContext.current)) {
                     Scaffold(
                         topBar = {
                             TopAppBar(
                                 title = { Text(text = "Compose Preferences") }
                             )
                         },
-                        bodyContent = {
+                        content = {
                             PreferenceScreen(
-                                context = this, items = listOf(
+                                items = listOf(
                                     SwitchPreferenceItem(
+                                        Settings.SwitchPrefExample,
                                         title = "Switch Preference",
                                         summary = "A preference with a switch.",
-                                        key = "pref_switch",
                                         singleLineTitle = true,
                                         icon = Icons.Outlined.Warning,
                                     ),
                                     SingleListPreferenceItem(
+                                        Settings.ListPrefExample,
                                         title = "List Preference",
                                         summary = "Select one item from a list in a dialog",
-                                        key = "pref_list",
                                         singleLineTitle = true,
                                         icon = Icons.Outlined.Warning,
                                         entries = mapOf(
@@ -55,9 +60,9 @@ class MainActivity : AppCompatActivity() {
                                         ),
                                     ),
                                     MultiListPreferenceItem(
+                                        Settings.MultiPrefExample,
                                         title = "MultiSelect List Preference",
                                         summary = "Select multiple items from a list in a dialog",
-                                        key = "pref_multi_list",
                                         singleLineTitle = true,
                                         icon = Icons.Outlined.Warning,
                                         entries = mapOf(
@@ -66,9 +71,9 @@ class MainActivity : AppCompatActivity() {
                                         ),
                                     ),
                                     SeekbarPreferenceItem(
+                                        Settings.SeekPrefExample,
                                         title = "Seekbar Preference",
                                         summary = "Select a value on a seekbar",
-                                        key = "pref_seek",
                                         defaultValue = 50F,
                                         singleLineTitle = true,
                                         icon = Icons.Outlined.Warning,
@@ -82,61 +87,6 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-        }
-    }
-}
-
-@ExperimentalMaterialApi
-@Composable
-fun PreferenceScreen() {
-    ScrollableColumn {
-        SwitchPreference(
-            title = "Switch Preference",
-            summary = "A preference with a switch.",
-            key = "pref_switch",
-            singleLineTitle = true,
-            icon = Icons.Outlined.Warning,
-        )
-
-
-
-        PreferenceGroup(title = "List Group", enabled = true) {
-            ListPreference(
-                title = "List Preference",
-                summary = "Select one item from a list in a dialog",
-                key = "pref_list",
-                singleLineTitle = true,
-                icon = Icons.Outlined.Warning,
-                entries = mapOf(
-                    "key1" to "Item1",
-                    "key2" to "Item2"
-                ),
-            )
-            MultiSelectListPreference(
-                title = "MultiSelect List Preference",
-                summary = "Select multiple items from a list in a dialog",
-                key = "pref_multi_list",
-                singleLineTitle = true,
-                icon = Icons.Outlined.Warning,
-                entries = mapOf(
-                    "key1" to "Item1",
-                    "key2" to "Item2"
-                ),
-            )
-        }
-
-        PreferenceGroup(title = "Seekbar Group") {
-            SeekBarPreference(
-                title = "Seekbar Preference",
-                summary = "Select a value on a seekbar",
-                key = "pref_seek",
-                defaultValue = 50F,
-                singleLineTitle = true,
-                icon = Icons.Outlined.Warning,
-                steps = 4,
-                valueRange = 50F..100F,
-                valueRepresentation = { value -> "${value.roundToInt()} %" }
-            )
         }
     }
 }

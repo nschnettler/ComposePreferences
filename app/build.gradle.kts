@@ -18,28 +18,19 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.0-alpha12"
-    }
-    kotlinOptions {
-        freeCompilerArgs += listOf(
-            "-Xopt-in=kotlin.RequiresOptIn",
-            "-Xallow-jvm-ir-dependencies",
-            "-Xskip-prerelease-check",
-            "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        )
+        kotlinCompilerExtensionVersion = "1.0.0-beta01"
     }
 }
 
 dependencies {
-    implementation(project(":preferences"))
-    implementation(project(":datastorePreferences"))
+    implementation(project(":datastore:compose"))
 
+    implementation(AndroidX.compose.material)
     implementation(AndroidX.appCompat)
+    implementation("androidx.activity:activity-compose:_")
+    implementation("androidx.datastore:datastore-preferences:_")
 }
