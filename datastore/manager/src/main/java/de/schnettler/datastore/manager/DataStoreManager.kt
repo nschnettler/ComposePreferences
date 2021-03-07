@@ -29,4 +29,8 @@ class DataStoreManager(appContext: Context) {
             preferences[preference.dataStoreKey] = newValue
         }
     }
+
+    suspend fun clearPreferences() {
+        settingsDataStore.edit { preferences -> preferences.clear() }
+    }
 }
