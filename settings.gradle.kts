@@ -5,7 +5,6 @@ rootProject.name = "ComposePreferences"
 include(":datastore:compose")
 include(":datastore:manager")
 include(":app")
-include(":preferences")
 
 
 buildscript {
