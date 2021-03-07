@@ -8,17 +8,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import de.schnettler.datastore.compose.model.PreferenceItem
+import de.schnettler.datastore.compose.LocalPreferenceEnabledStatus
+import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem
 
 @ExperimentalMaterialApi
 @Composable
-fun Preference(
+internal fun Preference(
     item: PreferenceItem<*>,
     summary: String? = null,
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
 ) {
-    StatusWrapper(enabled = item.enabled) {
+    val isEnabled = LocalPreferenceEnabledStatus.current && item.enabled
+    StatusWrapper(enabled = isEnabled) {
         ListItem(
             text = {
                 Text(
@@ -36,7 +38,7 @@ fun Preference(
                         .size(24.dp)
                 )
             },
-            modifier = Modifier.clickable(onClick = { if (item.enabled) onClick() }),
+            modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
             trailing = trailing,
         )
     }
@@ -50,7 +52,8 @@ fun Preference(
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
 ) {
-    StatusWrapper(enabled = item.enabled) {
+    val isEnabled = LocalPreferenceEnabledStatus.current && item.enabled
+    StatusWrapper(enabled = isEnabled) {
         ListItem(
             text = {
                 Text(
@@ -68,7 +71,7 @@ fun Preference(
                         .size(24.dp)
                 )
             },
-            modifier = Modifier.clickable(onClick = { if (item.enabled) onClick() }),
+            modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
             trailing = trailing,
         )
     }

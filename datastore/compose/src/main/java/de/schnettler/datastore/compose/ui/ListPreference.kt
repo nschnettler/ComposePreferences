@@ -11,14 +11,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import de.schnettler.datastore.compose.model.SingleListPreferenceItem
+import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem.RadioBoxListPreferenceItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
-fun ListPreference(
-    item: SingleListPreferenceItem,
+internal fun ListPreference(
+    item: RadioBoxListPreferenceItem,
     value: String,
     onValueChanged: (String) -> Unit
 ) {

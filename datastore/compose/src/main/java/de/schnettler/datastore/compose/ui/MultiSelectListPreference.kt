@@ -1,4 +1,4 @@
-package de.schnettler.datastorepreferences
+package de.schnettler.datastore.compose.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,15 +11,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import de.schnettler.datastore.compose.model.MultiListPreferenceItem
-import de.schnettler.datastore.compose.ui.Preference
+import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem.CheckBoxListPreferenceItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
-fun MultiSelectListPreference(
-    item: MultiListPreferenceItem,
+internal fun MultiSelectListPreference(
+    item: CheckBoxListPreferenceItem,
     values: Set<String>,
     onValuesChanged: (Set<String>) -> Unit
 ) {

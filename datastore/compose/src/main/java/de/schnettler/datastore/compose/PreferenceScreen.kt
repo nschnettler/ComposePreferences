@@ -1,20 +1,22 @@
 package de.schnettler.datastore.compose
 
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import de.schnettler.datastore.compose.model.*
-import de.schnettler.datastore.compose.ui.ListPreference
-import de.schnettler.datastore.compose.ui.SeekBarPreference
-import de.schnettler.datastore.compose.ui.SwitchPreference
-import de.schnettler.datastorepreferences.LocalDataStoreManager
-import de.schnettler.datastorepreferences.MultiSelectListPreference
+import androidx.compose.ui.unit.dp
+import de.schnettler.datastore.compose.model.BasePreferenceItem
+import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceGroup
+import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem
+import de.schnettler.datastore.compose.ui.GroupHeader
 import dev.chrisbanes.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
@@ -24,9 +26,7 @@ fun PreferenceScreen(
     modifier: Modifier = Modifier,
     statusBarPadding: Boolean = false,
 ) {
-    val scope = rememberCoroutineScope()
     val dataStore = LocalDataStoreManager.current
-
     val prefs by dataStore.preferenceFlow.collectAsState(initial = null)
 
     LazyColumn(modifier = modifier) {
@@ -34,42 +34,23 @@ fun PreferenceScreen(
             item { Spacer(modifier = Modifier.statusBarsPadding()) }
         }
 
-        items(items = items){ item ->
-            when (item) {
-                is SwitchPreferenceItem -> {
-                    SwitchPreference(
-                        item = item,
-                        value = prefs?.get(item.entry.dataStoreKey) ?: item.entry.defaultValue,
-                        onValueChanged = { newValue ->
-                            scope.launch() { dataStore.editPreference(item.entry, newValue) }
+        items.forEach { preference ->
+            when (preference) {
+                is PreferenceGroup -> {
+                    item {
+                        GroupHeader(title = preference.title)
+                    }
+                    items(preference.preferenceItems) { item ->
+                        CompositionLocalProvider(LocalPreferenceEnabledStatus provides preference.enabled) {
+                            PreferenceItemEntry(item, prefs)
                         }
-                    )
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
                 }
-                is SingleListPreferenceItem -> {
-                    ListPreference(
-                        item = item,
-                        value = prefs?.get(item.entry.dataStoreKey) ?: item.entry.defaultValue,
-                        onValueChanged = { newValue ->
-                            scope.launch { dataStore.editPreference(item.entry, newValue) }
-                        })
-                }
-                is MultiListPreferenceItem -> {
-                    MultiSelectListPreference(
-                        item = item,
-                        values = prefs?.get(item.entry.dataStoreKey) ?: item.entry.defaultValue,
-                        onValuesChanged = { newValues ->
-                            scope.launch { dataStore.editPreference(item.entry, newValues) }
-                        }
-                    )
-                }
-                is SeekbarPreferenceItem -> {
-                    SeekBarPreference(
-                        item = item,
-                        value = prefs?.get(item.entry.dataStoreKey) ?: item.entry.defaultValue,
-                        onValueChanged = { newValue ->
-                            scope.launch { dataStore.editPreference(item.entry, newValue) }
-                        },
-                    )
+                is PreferenceItem<*> -> item {
+                    PreferenceItemEntry(item = preference, prefs = prefs)
                 }
             }
         }
