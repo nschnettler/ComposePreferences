@@ -11,24 +11,27 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import de.schnettler.datastore.compose.model.MultiListPreferenceItem
+import de.schnettler.datastore.compose.ui.Preference
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
-fun ListPreference(
-    item: SingleListPreferenceItem,
-    value: String?,
-    onValueChanged: (String) -> Unit
+fun MultiSelectListPreference(
+    item: MultiListPreferenceItem,
+    values: Set<String>,
+    onValuesChanged: (Set<String>) -> Unit
 ) {
-    val selectedValue = value ?: item.defaultValue
     val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }
+    val descripion = item.entries.filter { values.contains(it.key) }.map { it.value }
+        .joinToString(separator = ", ", limit = 3)
 
     Preference(
         item = item,
-        summary = item.entries[value],
-        onClick = { showDialog.value = true },
+        summary = if (descripion.isNotBlank()) descripion else null,
+        onClick = { showDialog.value = true }
     )
 
     if (showDialog.value) {
@@ -38,23 +41,25 @@ fun ListPreference(
             text = {
                 Column {
                     item.entries.forEach { current ->
-                        val isSelected = selectedValue == current.key
-                        val onSelected = {
-                            onValueChanged(current.key)
-                            closeDialog()
+                        val isSelected = values.contains(current.key)
+                        val onSelectionChanged = {
+                            val result = when (!isSelected) {
+                                true -> values + current.key
+                                false -> values - current.key
+                            }
+                            onValuesChanged(result)
                         }
                         Row(Modifier
                             .fillMaxWidth()
                             .selectable(
                                 selected = isSelected,
-                                onClick = { if (!isSelected) onSelected() }
+                                onClick = { onSelectionChanged() }
                             )
                             .padding(16.dp)
                         ) {
-                            RadioButton(
-                                selected = isSelected,
-                                onClick = { if (!isSelected) onSelected() }
-                            )
+                            Checkbox(checked = isSelected, onCheckedChange = {
+                                onSelectionChanged()
+                            })
                             Text(
                                 text = current.value,
                                 style = MaterialTheme.typography.body1.merge(),
@@ -64,7 +69,14 @@ fun ListPreference(
                     }
                 }
             },
-            confirmButton = { }
+            confirmButton = {
+                TextButton(
+                    onClick = { closeDialog() },
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.secondary),
+                ) {
+                    Text(text = "Select")
+                }
+            }
         )
     }
 }

@@ -1,4 +1,4 @@
-package de.schnettler.datastorepreferences
+package de.schnettler.datastore.compose.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import de.schnettler.datastore.compose.model.SeekbarPreferenceItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
@@ -20,10 +21,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Composable
 fun SeekBarPreference(
     item: SeekbarPreferenceItem,
-    value: Float?,
+    value: Float,
     onValueChanged: (Float) -> Unit,
 ) {
-    val currentValue = remember(value) { mutableStateOf(value ?: item.defaultValue) }
+    val currentValue = remember(value) { mutableStateOf(value) }
     Preference(
         item = item,
         summary = {
@@ -54,7 +55,7 @@ private fun PreferenceSummary(
                 onValueChange = { if (item.enabled) onValueChanged(it) },
                 valueRange = item.valueRange,
                 steps = item.steps,
-                onValueChangeEnd = onValueChangeEnd
+                onValueChangeFinished = onValueChangeEnd
             )
         }
     }

@@ -1,4 +1,4 @@
-package de.schnettler.datastorepreferences
+package de.schnettler.datastore.compose.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,26 +11,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import de.schnettler.datastore.compose.model.SingleListPreferenceItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
-fun MultiSelectListPreference(
-    item: MultiListPreferenceItem,
-    values: Set<String>?,
-    onValuesChanged: (Set<String>) -> Unit
+fun ListPreference(
+    item: SingleListPreferenceItem,
+    value: String,
+    onValueChanged: (String) -> Unit
 ) {
-    val selectedValues = values ?: item.defaultValue
     val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }
-    val descripion = item.entries.filter { selectedValues.contains(it.key) }.map { it.value }
-        .joinToString(separator = ", ", limit = 3)
 
     Preference(
         item = item,
-        summary = if (descripion.isNotBlank()) descripion else null,
-        onClick = { showDialog.value = true }
+        summary = item.entries[value],
+        onClick = { showDialog.value = true },
     )
 
     if (showDialog.value) {
@@ -40,25 +38,23 @@ fun MultiSelectListPreference(
             text = {
                 Column {
                     item.entries.forEach { current ->
-                        val isSelected = selectedValues.contains(current.key)
-                        val onSelectionChanged = {
-                            val result = when (!isSelected) {
-                                true -> selectedValues + current.key
-                                false -> selectedValues - current.key
-                            }
-                            onValuesChanged(result)
+                        val isSelected = value == current.key
+                        val onSelected = {
+                            onValueChanged(current.key)
+                            closeDialog()
                         }
                         Row(Modifier
                             .fillMaxWidth()
                             .selectable(
                                 selected = isSelected,
-                                onClick = { onSelectionChanged() }
+                                onClick = { if (!isSelected) onSelected() }
                             )
                             .padding(16.dp)
                         ) {
-                            Checkbox(checked = isSelected, onCheckedChange = {
-                                onSelectionChanged()
-                            })
+                            RadioButton(
+                                selected = isSelected,
+                                onClick = { if (!isSelected) onSelected() }
+                            )
                             Text(
                                 text = current.value,
                                 style = MaterialTheme.typography.body1.merge(),
@@ -68,14 +64,7 @@ fun MultiSelectListPreference(
                     }
                 }
             },
-            confirmButton = {
-                TextButton(
-                    onClick = { closeDialog() },
-                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.secondary),
-                ) {
-                    Text(text = "Select")
-                }
-            }
+            confirmButton = { }
         )
     }
 }
