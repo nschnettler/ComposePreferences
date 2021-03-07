@@ -13,6 +13,17 @@ sealed class BasePreferenceItem() {
         abstract val singleLineTitle: Boolean
         abstract val icon: ImageVector
 
+        data class BasicPreferenceItem(
+            override val metaData: PreferenceMetaData<String>,
+            override val title: String,
+            override val summary: String,
+            override val singleLineTitle: Boolean,
+            override val icon: ImageVector,
+            override val enabled: Boolean = true,
+
+            val onClick: () -> Unit = {}
+        ) : PreferenceItem<String>()
+
         data class SwitchPreferenceItem(
             override val metaData: PreferenceMetaData<Boolean>,
             override val title: String,
@@ -42,7 +53,6 @@ sealed class BasePreferenceItem() {
             override val enabled: Boolean = true,
 
             val entries: Map<String, String>,
-            val defaultValue: Set<String> = emptySet()
         ) : PreferenceItem<Set<String>>()
 
         data class SeekBarPreferenceItem(

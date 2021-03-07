@@ -4,21 +4,19 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.datastore.preferences.core.Preferences
-import de.schnettler.datastore.compose.model.BasePreferenceItem
-import de.schnettler.datastore.compose.ui.ListPreference
-import de.schnettler.datastore.compose.ui.MultiSelectListPreference
-import de.schnettler.datastore.compose.ui.SeekBarPreference
-import de.schnettler.datastore.compose.ui.SwitchPreference
+import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem
+import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem.*
+import de.schnettler.datastore.compose.ui.*
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @Composable
-fun PreferenceItemEntry(item: BasePreferenceItem.PreferenceItem<*>, prefs: Preferences?) {
+fun PreferenceItemEntry(item: PreferenceItem<*>, prefs: Preferences?) {
     val scope = rememberCoroutineScope()
     val dataStore = LocalDataStoreManager.current
 
     when (item) {
-        is BasePreferenceItem.PreferenceItem.SwitchPreferenceItem -> {
+        is SwitchPreferenceItem -> {
             SwitchPreference(
                 item = item,
                 value = prefs?.get(item.metaData.dataStoreKey) ?: item.metaData.defaultValue,
@@ -27,7 +25,7 @@ fun PreferenceItemEntry(item: BasePreferenceItem.PreferenceItem<*>, prefs: Prefe
                 }
             )
         }
-        is BasePreferenceItem.PreferenceItem.RadioBoxListPreferenceItem -> {
+        is RadioBoxListPreferenceItem -> {
             ListPreference(
                 item = item,
                 value = prefs?.get(item.metaData.dataStoreKey) ?: item.metaData.defaultValue,
@@ -35,7 +33,7 @@ fun PreferenceItemEntry(item: BasePreferenceItem.PreferenceItem<*>, prefs: Prefe
                     scope.launch { dataStore.editPreference(item.metaData, newValue) }
                 })
         }
-        is BasePreferenceItem.PreferenceItem.CheckBoxListPreferenceItem -> {
+        is CheckBoxListPreferenceItem -> {
             MultiSelectListPreference(
                 item = item,
                 values = prefs?.get(item.metaData.dataStoreKey) ?: item.metaData.defaultValue,
@@ -44,13 +42,19 @@ fun PreferenceItemEntry(item: BasePreferenceItem.PreferenceItem<*>, prefs: Prefe
                 }
             )
         }
-        is BasePreferenceItem.PreferenceItem.SeekBarPreferenceItem -> {
+        is SeekBarPreferenceItem -> {
             SeekBarPreference(
                 item = item,
                 value = prefs?.get(item.metaData.dataStoreKey) ?: item.metaData.defaultValue,
                 onValueChanged = { newValue ->
                     scope.launch { dataStore.editPreference(item.metaData, newValue) }
                 },
+            )
+        }
+        is BasicPreferenceItem -> {
+            Preference(
+                item = item,
+                onClick = item.onClick,
             )
         }
     }
