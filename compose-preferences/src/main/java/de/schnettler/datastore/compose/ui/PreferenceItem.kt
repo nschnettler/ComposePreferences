@@ -55,6 +55,15 @@ internal fun PreferenceItem(
                 },
             )
         }
+        is DropDownMenuPreference -> {
+            DropDownPreferenceWidget(
+                preference = item,
+                value = prefs?.get(item.request.key) ?: item.request.defaultValue,
+                onValueChange = { newValue ->
+                    scope.launch { dataStoreManager.editPreference(item.request.key, newValue) }
+                }
+            )
+        }
         is TextPreference -> {
             TextPreferenceWidget(
                 preference = item,

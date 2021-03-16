@@ -7,3 +7,4 @@ object SwitchPrefExample : PreferenceRequest<Boolean>(booleanPreferencesKey("pre
 object ListPrefExample: PreferenceRequest<String>(stringPreferencesKey("pref_list"), "")
 object MultiPrefExample: PreferenceRequest<Set<String>>(stringSetPreferencesKey("pref_multi_list"), emptySet())
 object SeekPrefExample: PreferenceRequest<Float>(floatPreferencesKey("pref_seek"), 50F)
+object DropDownPrefExample: PreferenceRequest<String>(stringPreferencesKey("pref_dropdown_list"), "")

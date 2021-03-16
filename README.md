@@ -14,6 +14,7 @@ which makes it easy to access the preferences on the preference screen or from a
 - ListPreference: A PreferenceItem that displays a list of entries as a dialog. Only one entry can be selected at any given time.
 - MultiSelectListPreference: A PreferenceItem that displays a list of entries as a dialog. Multiple entries can be selected at the same time.
 - SeekBarPreference: A PreferenceItem that displays a seekBar and the currently selected value.
+- DropDownPreference: A PreferenceItem that displays a list of entries as a dropdown menu. Only one entry can be selected at any given time.
 
 ## Usage
 To use ComposePreferences, create a DataStore and simply add a PreferenceScreen to your App:

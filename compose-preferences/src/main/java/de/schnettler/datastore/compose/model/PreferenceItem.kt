@@ -89,6 +89,20 @@ sealed class Preference {
             val valueRepresentation: (Float) -> String
         ) : PreferenceItem<Float>()
 
+        /**
+         * 	A [PreferenceItem] that displays a list of entries as a DropDownMenu.
+         * 	Only one entry can be selected at any given time.
+         */
+        data class DropDownMenuPreference(
+            val request: PreferenceRequest<String>,
+            override val title: String,
+            override val summary: String,
+            override val singleLineTitle: Boolean,
+            override val icon: ImageVector,
+            override val enabled: Boolean = true,
+
+            val entries: Map<String, String>,
+        ) : PreferenceItem<String>()
     }
 
     /**
