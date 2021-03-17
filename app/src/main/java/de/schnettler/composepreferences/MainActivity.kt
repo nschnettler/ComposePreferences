@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -19,6 +21,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import de.schnettler.composepreferences.ui.ComposePreferencesTheme
 import de.schnettler.datastore.compose.model.Preference.PreferenceGroup
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem
@@ -59,7 +62,13 @@ fun AppPreferenceScreen() {
                 title = "List Preference",
                 summary = "Select one item from a list in a dialog",
                 singleLineTitle = true,
-                icon = Icons.Outlined.Warning,
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Warning,
+                        contentDescription = null,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                },
                 entries = mapOf(
                     "key1" to "Item1",
                     "key2" to "Item2"
@@ -70,7 +79,13 @@ fun AppPreferenceScreen() {
                 title = "MultiSelect List Preference",
                 summary = "Select multiple items from a list in a dialog",
                 singleLineTitle = true,
-                icon = Icons.Outlined.Warning,
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Warning,
+                        contentDescription = null,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                },
                 entries = mapOf(
                     "key1" to "Item1",
                     "key2" to "Item2"
@@ -81,7 +96,13 @@ fun AppPreferenceScreen() {
                 title = "DropDown Menu Preference",
                 summary = "Select an item from a dropdown menu",
                 singleLineTitle = true,
-                icon = Icons.Outlined.Warning,
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Warning,
+                        contentDescription = null,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                },
                 entries = mapOf(
                     "key1" to "Item1",
                     "key2" to "Item2"
@@ -105,7 +126,13 @@ fun AppPreferenceScreen() {
                     title = "Switch Preference",
                     summary = "A preference with a switch.",
                     singleLineTitle = true,
-                    icon = Icons.Outlined.Warning
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Warning,
+                            contentDescription = null,
+                            modifier = Modifier.padding(8.dp)
+                        )
+                    }
                 ),
                 listGroup,
                 PreferenceItem.SeekBarPreference(
@@ -113,7 +140,13 @@ fun AppPreferenceScreen() {
                     title = "Seekbar Preference",
                     summary = "Select a value on a seekbar",
                     singleLineTitle = true,
-                    icon = Icons.Outlined.Warning,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Warning,
+                            contentDescription = null,
+                            modifier = Modifier.padding(8.dp)
+                        )
+                    },
                     steps = 4,
                     valueRange = 50F..100F,
                     valueRepresentation = { value -> "${value.roundToInt()} %" }
@@ -122,7 +155,13 @@ fun AppPreferenceScreen() {
                     title = "Clear Preferences",
                     summary = "Remove all saved preferences",
                     singleLineTitle = true,
-                    icon = Icons.Outlined.Delete,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Delete,
+                            contentDescription = null,
+                            modifier = Modifier.padding(8.dp)
+                        )
+                    },
                     enabled = true,
                     onClick = {
                         scope.launch { dataStoreManager.clearPreferences() }

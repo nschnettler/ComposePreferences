@@ -1,15 +1,11 @@
 package de.schnettler.datastore.compose.ui.preference
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
 import androidx.compose.material.ListItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import de.schnettler.datastore.compose.LocalPreferenceEnabledStatus
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem
 import de.schnettler.datastore.compose.ui.StatusWrapper
@@ -32,15 +28,7 @@ internal fun TextPreferenceWidget(
                 )
             },
             secondaryText = { Text(text = summary ?: preference.summary) },
-            icon = {
-                Icon(
-                    imageVector = preference.icon,
-                    null,
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .size(24.dp)
-                )
-            },
+            icon = preference.icon,
             modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
             trailing = trailing,
         )
@@ -65,15 +53,7 @@ fun TextPreferenceWidget(
                 )
             },
             secondaryText = summary,
-            icon = {
-                Icon(
-                    imageVector = preference.icon,
-                    null,
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .size(24.dp)
-                )
-            },
+            icon = preference.icon,
             modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
             trailing = trailing,
         )
