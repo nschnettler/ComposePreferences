@@ -17,7 +17,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.0-beta01"
+        kotlinCompilerExtensionVersion = "1.0.0-beta03"
     }
 }
 
@@ -27,5 +27,5 @@ dependencies {
 
     // Compose
     implementation(AndroidX.compose.material)
-    implementation("dev.chrisbanes.accompanist", "accompanist-insets", "_")
+    implementation("com.google.accompanist", "accompanist-insets", "_")
 }
