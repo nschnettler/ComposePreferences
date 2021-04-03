@@ -118,7 +118,7 @@ fun AppPreferenceScreen() {
             )
         },
         modifier = Modifier.fillMaxSize()
-    ) {
+    ) { innerPadding ->
         PreferenceScreen(
             items = listOf(
                 PreferenceItem.SwitchPreference(
@@ -168,7 +168,8 @@ fun AppPreferenceScreen() {
                     }
                 )
             ),
-            dataStore = dataStore
+            dataStore = dataStore,
+            contentPadding = innerPadding
         )
     }
 }
