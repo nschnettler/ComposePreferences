@@ -22,6 +22,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.0.0-alpha12"
     }
+    buildToolsVersion = "30.0.3"
     kotlinOptions {
         freeCompilerArgs += listOf(
             "-Xopt-in=kotlin.RequiresOptIn",
