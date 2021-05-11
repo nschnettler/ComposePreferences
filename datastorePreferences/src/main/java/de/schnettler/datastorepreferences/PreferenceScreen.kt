@@ -2,26 +2,28 @@ package de.schnettler.datastorepreferences
 
 import android.content.Context
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
-import androidx.datastore.DataStore
-import androidx.datastore.preferences.Preferences
-import androidx.datastore.preferences.createDataStore
-import androidx.datastore.preferences.edit
+import androidx.compose.ui.platform.LocalContext
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
-fun PreferenceScreen(context: Context, items: List<BasePreferenceItem>) {
+fun PreferenceScreen(items: List<BasePreferenceItem>) {
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val dataStore: DataStore<Preferences> = remember { context.createDataStore(name = "settings") }
 
-    val prefs by dataStore.data.collectAsState(initial = null)
+    val prefs by context.dataStore.data.collectAsState(initial = null)
 
     LazyColumn {
         items(items = items){ item ->
@@ -32,7 +34,7 @@ fun PreferenceScreen(context: Context, items: List<BasePreferenceItem>) {
                         value = prefs?.get(item.prefKey),
                         onValueChanged = { newValue ->
                             scope.launch(Dispatchers.IO) {
-                                dataStore.edit { it[item.prefKey] = newValue }
+                                context.dataStore.edit { it[item.prefKey] = newValue }
                             }
                         }
                     )
@@ -42,7 +44,7 @@ fun PreferenceScreen(context: Context, items: List<BasePreferenceItem>) {
                         item = item,
                         value = prefs?.get(item.prefKey),
                         onValueChanged = { newValue ->
-                            scope.launch { dataStore.edit { it[item.prefKey] = newValue } }
+                            scope.launch { context.dataStore.edit { it[item.prefKey] = newValue } }
                         })
                 }
                 is MultiListPreferenceItem -> {
@@ -50,7 +52,7 @@ fun PreferenceScreen(context: Context, items: List<BasePreferenceItem>) {
                         item = item,
                         values = prefs?.get(item.prefKey),
                         onValuesChanged = { newValues ->
-                            scope.launch { dataStore.edit { it[item.prefKey] = newValues } }
+                            scope.launch { context.dataStore.edit { it[item.prefKey] = newValues } }
                         }
                     )
                 }
@@ -60,7 +62,7 @@ fun PreferenceScreen(context: Context, items: List<BasePreferenceItem>) {
                         value = prefs?.get(item.prefKey),
                         onValueChanged = { newValue ->
                             scope.launch {
-                                dataStore.edit { it[item.prefKey] = newValue }
+                                context.dataStore.edit { it[item.prefKey] = newValue }
                             }
                         },
                     )

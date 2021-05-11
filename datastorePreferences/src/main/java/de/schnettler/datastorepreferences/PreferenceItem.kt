@@ -1,8 +1,10 @@
 package de.schnettler.datastorepreferences
 
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.datastore.preferences.preferencesKey
-import androidx.datastore.preferences.preferencesSetKey
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 
 interface BasePreferenceItem
 
@@ -28,7 +30,7 @@ data class SwitchPreferenceItem(
     override val enabled: Boolean = true,
     val defaultValue: Boolean = false,
 ): PreferenceItem<Boolean> {
-    val prefKey = preferencesKey<Boolean>(key)
+    val prefKey = booleanPreferencesKey(key)
 }
 
 data class SingleListPreferenceItem(
@@ -41,7 +43,7 @@ data class SingleListPreferenceItem(
     override val entries: Map<String, String>,
     val defaultValue: String = "",
 ) : ListPreferenceItem {
-    val prefKey = preferencesKey<String>(key)
+    val prefKey = stringPreferencesKey(key)
 }
 
 data class MultiListPreferenceItem(
@@ -54,7 +56,7 @@ data class MultiListPreferenceItem(
     override val entries: Map<String, String>,
     val defaultValue: Set<String> = emptySet()
 ) : ListPreferenceItem {
-    val prefKey = preferencesSetKey<String>(key)
+    val prefKey = stringSetPreferencesKey(key)
 }
 
 data class SeekbarPreferenceItem(
@@ -69,7 +71,7 @@ data class SeekbarPreferenceItem(
     val steps: Int = 0,
     val valueRepresentation: (Float) -> String
 ) : PreferenceItem<Float> {
-    val prefKey = preferencesKey<Float>(key)
+    val prefKey = floatPreferencesKey(key)
 }
 
 data class PreferenceGroup(

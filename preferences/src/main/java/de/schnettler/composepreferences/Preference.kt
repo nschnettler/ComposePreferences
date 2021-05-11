@@ -4,8 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Providers
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
@@ -58,7 +57,10 @@ fun Preference(
 
 @Composable
 fun StatusWrapper(enabled: Boolean = true, content: @Composable () -> Unit) {
-    Providers(LocalContentAlpha provides if (enabled) ContentAlpha.high else ContentAlpha.disabled) {
+    CompositionLocalProvider(LocalContentAlpha provides if (enabled) ContentAlpha.high else ContentAlpha.disabled) {
         content()
     }
 }
+
+val LocalPreferenceEnabledStatus: ProvidableCompositionLocal<Boolean> =
+    compositionLocalOf(structuralEqualityPolicy()) { true }

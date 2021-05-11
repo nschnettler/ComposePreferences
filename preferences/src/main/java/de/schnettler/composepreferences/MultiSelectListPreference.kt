@@ -1,6 +1,5 @@
 package de.schnettler.composepreferences
 
-import androidx.compose.material.Text
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -23,24 +20,21 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun MultiSelectListPreference(
     title: String,
     summary: String,
-    key: String,
+    value: Set<String>,
+    onChange: (Set<String>) -> Unit = {},
     singleLineTitle: Boolean,
     icon: ImageVector,
     entries: Map<String, String>,
-    defaultValue: Set<String> = emptySet(),
     enabled: Boolean = true,
 ) {
-    val preferences = LocalPreferences.current
-    val selected by preferences.getStringSet(key = key, defaultValue).asFlow()
-        .collectAsState(initial = defaultValue)
     val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }
-    val descripion = entries.filter { selected.contains(it.key) }.map { it.value }
+    val description = entries.filter { value.contains(it.key) }.map { it.value }
         .joinToString(separator = ", ", limit = 3)
 
     Preference(
         title = title,
-        summary = if (descripion.isNotBlank()) descripion else summary,
+        summary = if (description.isNotBlank()) description else summary,
         singleLineTitle = singleLineTitle,
         icon = icon,
         enabled = enabled,
@@ -54,13 +48,13 @@ fun MultiSelectListPreference(
             text = {
                 Column {
                     entries.forEach { current ->
-                        val isSelected = selected.contains(current.key)
+                        val isSelected = value.contains(current.key)
                         val onSelectionChanged = {
                             val result = when (!isSelected) {
-                                true -> selected + current.key
-                                false -> selected - current.key
+                                true -> value + current.key
+                                false -> value - current.key
                             }
-                            preferences.sharedPreferences.edit().putStringSet(key, result).apply()
+                            onChange(result)
                         }
                         Row(Modifier
                             .fillMaxWidth()

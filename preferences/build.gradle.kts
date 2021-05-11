@@ -36,6 +36,4 @@ dependencies {
     // Compose
     api(AndroidX.compose.material)
 
-    // Preferences
-    api("com.github.tfcporciuncula:flow-preferences:_")
 }

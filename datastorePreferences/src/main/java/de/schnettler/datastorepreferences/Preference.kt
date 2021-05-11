@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Providers
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -49,7 +49,7 @@ fun Preference(
 
 @Composable
 fun StatusWrapper(enabled: Boolean = true, content: @Composable () -> Unit) {
-    Providers(LocalContentAlpha provides if (enabled) ContentAlpha.high else ContentAlpha.disabled) {
+    CompositionLocalProvider(LocalContentAlpha provides if (enabled) ContentAlpha.high else ContentAlpha.disabled) {
         content()
     }
 }

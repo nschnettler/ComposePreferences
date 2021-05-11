@@ -44,5 +44,7 @@ dependencies {
     implementation(project(":preferences"))
     implementation(project(":datastorePreferences"))
 
+    implementation("androidx.activity:activity-compose:1.3.0-alpha07")
+
     implementation(AndroidX.appCompat)
 }

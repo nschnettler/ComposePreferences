@@ -16,8 +16,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.tfcporciuncula.flow.FlowSharedPreferences
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.math.MathContext
+import java.text.NumberFormat
 
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
@@ -27,21 +28,28 @@ fun SeekBarPreference(
     summary: String,
     singleLineTitle: Boolean,
     icon: ImageVector,
-    key: String,
-    defaultValue: Float,
+    value: Float,
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
     steps: Int = 0,
     enabled: Boolean = true,
-    valueRepresentation: (Float) -> String
+    valueRepresentation: (Float) -> String = { NumberFormat.getInstance().format(it) },
+    onValueChange: (Float) -> Unit = {}
 ) {
-    val preferences = LocalPreferences.current
-    var sliderValue by remember { mutableStateOf(preferences.getFloat(key, defaultValue).get()) }
+    var sliderValue by remember(value) { mutableStateOf(value) }
 
     Preference(
         title = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
         summary = {
-            PreferenceSummary(summary, valueRepresentation, sliderValue, { sliderValue = it }, valueRange, steps,
-                preferences, key, enabled)
+            PreferenceSummary(
+                summary = summary,
+                valueRepresentation = valueRepresentation,
+                sliderValue = sliderValue,
+                onValueChange = { sliderValue = it },
+                onValueChangeFinished = onValueChange,
+                valueRange = valueRange,
+                steps = steps,
+                enabled = enabled,
+            )
         },
         icon = icon,
         enabled = enabled,
@@ -54,10 +62,10 @@ private fun PreferenceSummary(
     summary: String,
     valueRepresentation: (Float) -> String,
     sliderValue: Float,
-    onValueChanged: (Float) -> Unit,
+    onValueChange: (Float) -> Unit,
+    onValueChangeFinished: (Float) -> Unit,
     valueRange: ClosedFloatingPointRange<Float>,
-    steps: Int, preferences: FlowSharedPreferences,
-    key: String,
+    steps: Int,
     enabled: Boolean,
 ) {
     Column {
@@ -67,11 +75,11 @@ private fun PreferenceSummary(
             Spacer(modifier = Modifier.width(16.dp))
             Slider(
                 value = sliderValue,
-                onValueChange = { if (enabled) onValueChanged(it) },
+                onValueChange = { if (enabled) onValueChange(it) },
                 valueRange = valueRange,
                 steps = steps,
-                onValueChangeEnd = {
-                    preferences.sharedPreferences.edit().putFloat(key, sliderValue).apply()
+                onValueChangeFinished = {
+                    if (enabled) onValueChangeFinished(sliderValue)
                 }
             )
         }

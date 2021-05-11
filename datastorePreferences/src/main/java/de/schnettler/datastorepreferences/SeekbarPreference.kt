@@ -54,7 +54,7 @@ private fun PreferenceSummary(
                 onValueChange = { if (item.enabled) onValueChanged(it) },
                 valueRange = item.valueRange,
                 steps = item.steps,
-                onValueChangeEnd = onValueChangeEnd
+                onValueChangeFinished = onValueChangeEnd
             )
         }
     }

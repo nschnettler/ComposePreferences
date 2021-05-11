@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -22,15 +20,15 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun ListPreference(
     title: String,
     summary: String,
-    key: String,
+    value: String?,
+    onChange: (String) -> Unit = {},
     singleLineTitle: Boolean,
     icon: ImageVector,
     entries: Map<String, String>,
     defaultValue: String = "",
     enabled: Boolean = true,
 ) {
-    val preferences = LocalPreferences.current
-    val selected by preferences.getString(key = key, defaultValue).asFlow().collectAsState(initial = defaultValue)
+    val selected = value ?: defaultValue
     val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }
 
@@ -52,7 +50,7 @@ fun ListPreference(
                     entries.forEach { current ->
                         val isSelected = selected == current.key
                         val onSelected = {
-                            preferences.sharedPreferences.edit().putString(key, current.key).apply()
+                            onChange(current.value)
                             closeDialog()
                         }
                         Row(Modifier
