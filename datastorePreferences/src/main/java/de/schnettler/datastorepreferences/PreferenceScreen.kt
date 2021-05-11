@@ -51,8 +51,8 @@ fun PreferenceScreen(items: List<BasePreferenceItem>) {
                 is MultiListPreferenceItem -> {
                     MultiSelectListPreference(
                         item = item,
-                        value = prefs?.get(item.prefKey) ?: emptySet(),
-                        onValueChange = { newValues ->
+                        values = prefs?.get(item.prefKey) ?: emptySet(),
+                        onValuesChanged = { newValues ->
                             scope.launch { context.dataStore.edit { it[item.prefKey] = newValues } }
                         }
                     )

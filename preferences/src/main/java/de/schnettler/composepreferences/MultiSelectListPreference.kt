@@ -8,18 +8,20 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import java.util.*
 
 @ExperimentalMaterialApi
 @Composable
 fun MultiSelectListPreference(
     title: String,
     summary: String,
-    value: Set<String>,
-    onValueChange: (Set<String>) -> Unit = {},
+    values: Set<String>,
+    onValuesChanged: (Set<String>) -> Unit = {},
     singleLineTitle: Boolean,
     icon: ImageVector,
     entries: Map<String, String>,
@@ -27,7 +29,7 @@ fun MultiSelectListPreference(
 ) {
     val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }
-    val description = entries.filter { value.contains(it.key) }.map { it.value }
+    val description = entries.filter { values.contains(it.key) }.map { it.value }
         .joinToString(separator = ", ", limit = 3)
 
     Preference(
@@ -40,31 +42,35 @@ fun MultiSelectListPreference(
     )
 
     if (showDialog.value) {
+        var selectedValues by remember(values) { mutableStateOf(values) }
         AlertDialog(
             onDismissRequest = { closeDialog() },
             title = { Text(text = title) },
             text = {
                 Column {
                     entries.forEach { current ->
-                        val isSelected = value.contains(current.key)
+                        val isSelected = selectedValues.contains(current.key)
                         val onSelectionChanged = {
-                            val result = when (!isSelected) {
-                                true -> value + current.key
-                                false -> value - current.key
+                            selectedValues = when (!isSelected) {
+                                true -> selectedValues + current.key
+                                false -> selectedValues - current.key
                             }
-                            onValueChange(result)
                         }
-                        Row(Modifier
-                            .fillMaxWidth()
-                            .selectable(
-                                selected = isSelected,
-                                onClick = { onSelectionChanged() }
-                            )
-                            .padding(16.dp)
+                        Row(
+                            Modifier
+                                .fillMaxWidth()
+                                .selectable(
+                                    selected = isSelected,
+                                    onClick = onSelectionChanged
+                                )
+                                .padding(16.dp)
                         ) {
-                            Checkbox(checked = isSelected, onCheckedChange = {
-                                onSelectionChanged()
-                            })
+                            Checkbox(
+                                checked = isSelected,
+                                onCheckedChange = {
+                                    onSelectionChanged()
+                                }
+                            )
                             Text(
                                 text = current.value,
                                 style = MaterialTheme.typography.body1.merge(),
@@ -74,12 +80,19 @@ fun MultiSelectListPreference(
                     }
                 }
             },
+            dismissButton = {
+                TextButton(onClick = closeDialog) {
+                    Text(text = stringResource(android.R.string.cancel).toUpperCase(Locale.getDefault()))
+                }
+            },
             confirmButton = {
                 TextButton(
-                    onClick = { closeDialog() },
-                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.secondary),
+                    onClick = {
+                        onValuesChanged(selectedValues)
+                        closeDialog()
+                    },
                 ) {
-                    Text(text = "Select")
+                    Text(text = stringResource(android.R.string.ok).toUpperCase(Locale.getDefault()))
                 }
             }
         )

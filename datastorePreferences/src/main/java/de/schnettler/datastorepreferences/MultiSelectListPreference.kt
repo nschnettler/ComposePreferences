@@ -7,16 +7,16 @@ import androidx.compose.runtime.Composable
 @Composable
 fun MultiSelectListPreference(
     item: MultiListPreferenceItem,
-    value: Set<String>,
-    onValueChange: (Set<String>) -> Unit
+    values: Set<String>,
+    onValuesChanged: (Set<String>) -> Unit
 ) {
     de.schnettler.composepreferences.MultiSelectListPreference(
         title = item.title,
         summary = item.summary,
-        value = value,
+        values = values,
         singleLineTitle = item.singleLineTitle,
         icon = item.icon,
         entries = item.entries,
-        onValueChange = onValueChange
+        onValuesChanged = onValuesChanged
     )
 }
