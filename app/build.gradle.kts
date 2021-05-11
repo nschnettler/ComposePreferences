@@ -1,5 +1,3 @@
-import java.util.*
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -35,7 +33,6 @@ android {
             "-Xopt-in=kotlin.RequiresOptIn",
             "-Xallow-jvm-ir-dependencies",
             "-Xskip-prerelease-check",
-            "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         )
     }
 }
