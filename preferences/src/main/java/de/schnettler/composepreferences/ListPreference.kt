@@ -11,7 +11,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import java.util.*
 
 @ExperimentalMaterialApi
 @Composable
@@ -39,7 +41,7 @@ fun ListPreference(
 
     if (showDialog.value) {
         AlertDialog(
-            onDismissRequest = { closeDialog() },
+            onDismissRequest = closeDialog,
             title = { Text(text = title) },
             text = {
                 Column {
@@ -68,6 +70,11 @@ fun ListPreference(
                             )
                         }
                     }
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = closeDialog) {
+                    Text(text = stringResource(android.R.string.cancel).toUpperCase(Locale.getDefault()))
                 }
             },
             confirmButton = { }
