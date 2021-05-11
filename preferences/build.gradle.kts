@@ -20,7 +20,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.0-alpha12"
+        kotlinCompilerExtensionVersion = "1.0.0-beta06"
     }
     buildToolsVersion = "30.0.3"
     kotlinOptions {
