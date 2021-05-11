@@ -12,16 +12,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
 @Composable
 fun MultiSelectListPreference(
     title: String,
     summary: String,
     value: Set<String>,
-    onChange: (Set<String>) -> Unit = {},
+    onValueChange: (Set<String>) -> Unit = {},
     singleLineTitle: Boolean,
     icon: ImageVector,
     entries: Map<String, String>,
@@ -54,7 +52,7 @@ fun MultiSelectListPreference(
                                 true -> value + current.key
                                 false -> value - current.key
                             }
-                            onChange(result)
+                            onValueChange(result)
                         }
                         Row(Modifier
                             .fillMaxWidth()

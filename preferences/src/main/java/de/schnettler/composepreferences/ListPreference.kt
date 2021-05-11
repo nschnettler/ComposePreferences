@@ -12,29 +12,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
 @Composable
 fun ListPreference(
     title: String,
     summary: String,
     value: String?,
-    onChange: (String) -> Unit = {},
+    onValueChange: (String) -> Unit = {},
     singleLineTitle: Boolean,
     icon: ImageVector,
     entries: Map<String, String>,
-    defaultValue: String = "",
     enabled: Boolean = true,
 ) {
-    val selected = value ?: defaultValue
     val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }
 
     Preference(
         title = title,
-        summary = entries[selected] ?: summary,
+        summary = entries[value] ?: summary,
         singleLineTitle = singleLineTitle,
         icon = icon,
         enabled = enabled,
@@ -48,9 +44,9 @@ fun ListPreference(
             text = {
                 Column {
                     entries.forEach { current ->
-                        val isSelected = selected == current.key
+                        val isSelected = value == current.key
                         val onSelected = {
-                            onChange(current.value)
+                            onValueChange(current.value)
                             closeDialog()
                         }
                         Row(Modifier

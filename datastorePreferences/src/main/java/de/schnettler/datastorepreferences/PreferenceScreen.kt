@@ -4,20 +4,21 @@ import android.content.Context
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 @ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
 @Composable
 fun PreferenceScreen(items: List<BasePreferenceItem>) {
     val context = LocalContext.current
@@ -31,8 +32,8 @@ fun PreferenceScreen(items: List<BasePreferenceItem>) {
                 is SwitchPreferenceItem -> {
                     SwitchPreference(
                         item = item,
-                        value = prefs?.get(item.prefKey),
-                        onValueChanged = { newValue ->
+                        value = prefs?.get(item.prefKey) ?: false,
+                        onValueChange = { newValue ->
                             scope.launch(Dispatchers.IO) {
                                 context.dataStore.edit { it[item.prefKey] = newValue }
                             }
@@ -43,15 +44,15 @@ fun PreferenceScreen(items: List<BasePreferenceItem>) {
                     ListPreference(
                         item = item,
                         value = prefs?.get(item.prefKey),
-                        onValueChanged = { newValue ->
+                        onValueChange = { newValue ->
                             scope.launch { context.dataStore.edit { it[item.prefKey] = newValue } }
                         })
                 }
                 is MultiListPreferenceItem -> {
                     MultiSelectListPreference(
                         item = item,
-                        values = prefs?.get(item.prefKey),
-                        onValuesChanged = { newValues ->
+                        value = prefs?.get(item.prefKey) ?: emptySet(),
+                        onValueChange = { newValues ->
                             scope.launch { context.dataStore.edit { it[item.prefKey] = newValues } }
                         }
                     )
@@ -60,7 +61,7 @@ fun PreferenceScreen(items: List<BasePreferenceItem>) {
                     SeekBarPreference(
                         item = item,
                         value = prefs?.get(item.prefKey),
-                        onValueChanged = { newValue ->
+                        onValueChange = { newValue ->
                             scope.launch {
                                 context.dataStore.edit { it[item.prefKey] = newValue }
                             }

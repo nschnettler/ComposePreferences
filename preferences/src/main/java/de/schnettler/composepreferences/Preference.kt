@@ -20,16 +20,14 @@ fun Preference(
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
 ) {
-    val isEnabled = LocalPreferenceEnabledStatus.current && enabled
-    StatusWrapper(enabled = isEnabled) {
-        ListItem(
-            text = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
-            secondaryText = { Text(text = summary) },
-            icon = { Icon(imageVector = icon, null, modifier = Modifier.padding(8.dp).size(24.dp)) },
-            modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
-            trailing = trailing,
-        )
-    }
+    Preference(
+        title = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
+        summary = { Text(text = summary) },
+        icon = icon,
+        enabled = enabled,
+        onClick = onClick,
+        trailing = trailing
+    )
 }
 
 @ExperimentalMaterialApi
@@ -47,7 +45,9 @@ fun Preference(
         ListItem(
             text = title,
             secondaryText = summary,
-            icon = { Icon(imageVector = icon, null, modifier = Modifier.padding(8.dp).size(24.dp)) },
+            icon = { Icon(imageVector = icon, null, modifier = Modifier
+                .padding(8.dp)
+                .size(24.dp)) },
             modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
             trailing = trailing,
         )

@@ -33,6 +33,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":preferences"))
+
     // Compose
     api(AndroidX.compose.material)
 
