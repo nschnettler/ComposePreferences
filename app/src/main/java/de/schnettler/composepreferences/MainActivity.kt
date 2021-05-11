@@ -8,9 +8,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material.icons.outlined.List
+import androidx.compose.material.icons.outlined.*
 import de.schnettler.composepreferences.ui.ComposePreferencesTheme
 import de.schnettler.datastorepreferences.*
 import kotlin.math.roundToInt
@@ -31,6 +29,13 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     PreferenceScreen(
                         items = listOf(
+                            StringPreferenceItem(
+                                title = "Text Preference",
+                                summary = "No value entered",
+                                key = "pref_string",
+                                singleLineTitle = true,
+                                icon = Icons.Outlined.Edit
+                            ),
                             SwitchPreferenceItem(
                                 title = "Switch Preference",
                                 summary = "A preference with a switch.",
