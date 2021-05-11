@@ -46,7 +46,7 @@ fun ListPreference(
                     entries.forEach { current ->
                         val isSelected = value == current.key
                         val onSelected = {
-                            onValueChange(current.value)
+                            onValueChange(current.key)
                             closeDialog()
                         }
                         Row(Modifier
