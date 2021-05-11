@@ -1,14 +1,8 @@
 package de.schnettler.datastorepreferences
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import de.schnettler.composepreferences.StatusWrapper
 
 
 @ExperimentalMaterialApi
@@ -36,8 +30,9 @@ fun Preference(
     trailing: @Composable (() -> Unit)? = null
 ) {
     de.schnettler.composepreferences.Preference(
-        title = { Text(text = item.title, maxLines = if (item.singleLineTitle) 1 else Int.MAX_VALUE) },
+        title = item.title,
         summary = summary,
+        singleLineTitle = item.singleLineTitle,
         icon = item.icon,
         enabled = item.enabled,
         onClick = onClick,

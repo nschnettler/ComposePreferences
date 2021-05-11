@@ -13,7 +13,7 @@ fun SwitchPreference(
     singleLineTitle: Boolean,
     icon: ImageVector,
     value: Boolean,
-    onValueChange: (Boolean) -> Unit,
+    onValueChanged: (Boolean) -> Unit,
     enabled: Boolean = true,
 ) {
     Preference(
@@ -22,8 +22,8 @@ fun SwitchPreference(
         singleLineTitle = singleLineTitle,
         icon = icon,
         enabled = enabled,
-        onClick = { onValueChange(!value) }
+        onClick = { onValueChanged(!value) }
     ) {
-        Switch(checked = value, onCheckedChange = { onValueChange(it) }, enabled = enabled)
+        Switch(checked = value, onCheckedChange = { onValueChanged(it) }, enabled = enabled)
     }
 }

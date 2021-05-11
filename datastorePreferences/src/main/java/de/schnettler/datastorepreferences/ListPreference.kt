@@ -9,13 +9,13 @@ import androidx.compose.runtime.Composable
 fun ListPreference(
     item: SingleListPreferenceItem,
     value: String?,
-    onValueChange: (String) -> Unit
+    onValueChanged: (String) -> Unit
 ) {
     de.schnettler.composepreferences.ListPreference(
         title = item.title,
         summary = item.summary,
         value = value,
-        onValueChange = onValueChange,
+        onValueChanged = onValueChanged,
         singleLineTitle = item.singleLineTitle,
         icon = item.icon,
         entries = item.entries

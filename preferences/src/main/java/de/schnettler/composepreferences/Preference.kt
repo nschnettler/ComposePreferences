@@ -21,8 +21,9 @@ fun Preference(
     trailing: @Composable (() -> Unit)? = null
 ) {
     Preference(
-        title = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
+        title = title,
         summary = { Text(text = summary) },
+        singleLineTitle = singleLineTitle,
         icon = icon,
         enabled = enabled,
         onClick = onClick,
@@ -33,8 +34,9 @@ fun Preference(
 @ExperimentalMaterialApi
 @Composable
 fun Preference(
-    title: @Composable () -> Unit,
+    title: String,
     summary: @Composable () -> Unit,
+    singleLineTitle: Boolean,
     icon: ImageVector,
     enabled: Boolean = true,
     onClick: () -> Unit = { },
@@ -43,7 +45,7 @@ fun Preference(
     val isEnabled = LocalPreferenceEnabledStatus.current && enabled
     StatusWrapper(enabled = isEnabled) {
         ListItem(
-            text = title,
+            text = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
             secondaryText = summary,
             icon = { Icon(imageVector = icon, null, modifier = Modifier
                 .padding(8.dp)

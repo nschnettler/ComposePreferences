@@ -26,21 +26,22 @@ fun SeekBarPreference(
     steps: Int = 0,
     enabled: Boolean = true,
     valueRepresentation: (Float) -> String = { NumberFormat.getInstance().format(it) },
-    onValueChange: (Float) -> Unit = {}
+    onValueChanged: (Float) -> Unit = {}
 ) {
     Preference(
-        title = { Text(text = title, maxLines = if (singleLineTitle) 1 else Int.MAX_VALUE) },
+        title = title,
         summary = {
             SeekBarSummary(
                 summary = summary,
                 valueRepresentation = valueRepresentation,
                 value = value,
-                onValueChange = onValueChange,
+                onValueChanged = onValueChanged,
                 valueRange = valueRange,
                 steps = steps,
                 enabled = enabled,
             )
         },
+        singleLineTitle = singleLineTitle,
         icon = icon,
         enabled = enabled,
     )
@@ -51,7 +52,7 @@ private fun SeekBarSummary(
     summary: String,
     valueRepresentation: (Float) -> String,
     value: Float?,
-    onValueChange: (Float) -> Unit,
+    onValueChanged: (Float) -> Unit,
     valueRange: ClosedFloatingPointRange<Float>,
     steps: Int,
     enabled: Boolean,
@@ -71,7 +72,7 @@ private fun SeekBarSummary(
                 valueRange = valueRange,
                 steps = steps,
                 onValueChangeFinished = {
-                    if (enabled) onValueChange(sliderValue)
+                    if (enabled) onValueChanged(sliderValue)
                 }
             )
         }

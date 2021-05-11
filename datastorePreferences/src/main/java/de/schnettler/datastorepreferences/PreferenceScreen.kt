@@ -13,7 +13,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -27,14 +26,25 @@ fun PreferenceScreen(items: List<BasePreferenceItem>) {
     val prefs by context.dataStore.data.collectAsState(initial = null)
 
     LazyColumn {
-        items(items = items){ item ->
+        items(items = items) { item ->
             when (item) {
+                is StringPreferenceItem -> {
+                    EditTextPreference(
+                        item = item,
+                        value = prefs?.get(item.prefKey),
+                        onValueChange = { newValue ->
+                            scope.launch {
+                                context.dataStore.edit { it[item.prefKey] = newValue }
+                            }
+                        }
+                    )
+                }
                 is SwitchPreferenceItem -> {
                     SwitchPreference(
                         item = item,
-                        value = prefs?.get(item.prefKey) ?: false,
-                        onValueChange = { newValue ->
-                            scope.launch(Dispatchers.IO) {
+                        value = prefs?.get(item.prefKey),
+                        onValueChanged = { newValue ->
+                            scope.launch {
                                 context.dataStore.edit { it[item.prefKey] = newValue }
                             }
                         }
@@ -44,7 +54,7 @@ fun PreferenceScreen(items: List<BasePreferenceItem>) {
                     ListPreference(
                         item = item,
                         value = prefs?.get(item.prefKey),
-                        onValueChange = { newValue ->
+                        onValueChanged = { newValue ->
                             scope.launch { context.dataStore.edit { it[item.prefKey] = newValue } }
                         })
                 }
@@ -61,13 +71,14 @@ fun PreferenceScreen(items: List<BasePreferenceItem>) {
                     SeekBarPreference(
                         item = item,
                         value = prefs?.get(item.prefKey),
-                        onValueChange = { newValue ->
+                        onValueChanged = { newValue ->
                             scope.launch {
                                 context.dataStore.edit { it[item.prefKey] = newValue }
                             }
                         },
                     )
                 }
+                else -> throw IllegalStateException("Unsupported preference item")
             }
         }
     }

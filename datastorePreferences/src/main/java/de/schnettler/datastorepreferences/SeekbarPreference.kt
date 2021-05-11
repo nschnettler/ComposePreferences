@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 fun SeekBarPreference(
     item: SeekbarPreferenceItem,
     value: Float?,
-    onValueChange: (Float) -> Unit,
+    onValueChanged: (Float) -> Unit,
 ) {
     de.schnettler.composepreferences.SeekBarPreference(
         title = item.title,
@@ -16,6 +16,6 @@ fun SeekBarPreference(
         singleLineTitle = item.singleLineTitle,
         icon = item.icon,
         value = value,
-        onValueChange = onValueChange
+        onValueChanged = onValueChanged
     )
 }

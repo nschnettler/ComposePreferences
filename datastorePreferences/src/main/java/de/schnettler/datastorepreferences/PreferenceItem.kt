@@ -21,6 +21,18 @@ interface ListPreferenceItem : PreferenceItem<String> {
     val entries: Map<String, String>
 }
 
+data class StringPreferenceItem(
+    override val title: String,
+    override val summary: String,
+    override val key: String,
+    override val singleLineTitle: Boolean,
+    override val icon: ImageVector,
+    override val enabled: Boolean = true,
+    val defaultValue: String = "",
+) : PreferenceItem<String> {
+    val prefKey = stringPreferencesKey(key)
+}
+
 data class SwitchPreferenceItem(
     override val title: String,
     override val summary: String,

@@ -5,15 +5,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.material.Checkbox
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import java.util.*
 
 @ExperimentalMaterialApi
 @Composable
@@ -43,58 +42,46 @@ fun MultiSelectListPreference(
 
     if (showDialog.value) {
         var selectedValues by remember(values) { mutableStateOf(values) }
-        AlertDialog(
+        PreferenceDialog(
             onDismissRequest = { closeDialog() },
-            title = { Text(text = title) },
-            text = {
-                Column {
-                    entries.forEach { current ->
-                        val isSelected = selectedValues.contains(current.key)
-                        val onSelectionChanged = {
-                            selectedValues = when (!isSelected) {
-                                true -> selectedValues + current.key
-                                false -> selectedValues - current.key
-                            }
-                        }
-                        Row(
-                            Modifier
-                                .fillMaxWidth()
-                                .selectable(
-                                    selected = isSelected,
-                                    onClick = onSelectionChanged
-                                )
-                                .padding(16.dp)
-                        ) {
-                            Checkbox(
-                                checked = isSelected,
-                                onCheckedChange = {
-                                    onSelectionChanged()
-                                }
-                            )
-                            Text(
-                                text = current.value,
-                                style = MaterialTheme.typography.body1.merge(),
-                                modifier = Modifier.padding(start = 16.dp)
-                            )
+            title = title,
+            onConfirm = {
+                onValuesChanged(selectedValues)
+                closeDialog()
+            },
+        ) {
+            Column {
+                entries.forEach { current ->
+                    val isSelected = selectedValues.contains(current.key)
+                    val onSelectionChanged = {
+                        selectedValues = when (!isSelected) {
+                            true -> selectedValues + current.key
+                            false -> selectedValues - current.key
                         }
                     }
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = closeDialog) {
-                    Text(text = stringResource(android.R.string.cancel).toUpperCase(Locale.getDefault()))
-                }
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        onValuesChanged(selectedValues)
-                        closeDialog()
-                    },
-                ) {
-                    Text(text = stringResource(android.R.string.ok).toUpperCase(Locale.getDefault()))
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .selectable(
+                                selected = isSelected,
+                                onClick = onSelectionChanged
+                            )
+                            .padding(16.dp)
+                    ) {
+                        Checkbox(
+                            checked = isSelected,
+                            onCheckedChange = {
+                                onSelectionChanged()
+                            }
+                        )
+                        Text(
+                            text = current.value,
+                            style = MaterialTheme.typography.body1.merge(),
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
+                    }
                 }
             }
-        )
+        }
     }
 }
