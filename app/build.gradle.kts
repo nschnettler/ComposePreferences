@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":datastore:compose"))
+    implementation(project(":compose-datastore"))
 
     implementation(AndroidX.compose.material)
     implementation(AndroidX.appCompat)

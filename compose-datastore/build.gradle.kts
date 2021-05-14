@@ -23,7 +23,7 @@ android {
 
 dependencies {
     // Manager
-    api(project(":datastore:manager"))
+    api(project(":datastore-manager"))
 
     implementation(Kotlin.stdlib.jdk8)
 
