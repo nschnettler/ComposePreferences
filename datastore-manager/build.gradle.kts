@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    id("maven-publish")
 }
 
 android {
@@ -18,4 +19,21 @@ android {
 dependencies {
     // Preferences
     api("androidx.datastore:datastore-preferences:_")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            create<MavenPublication>("release") {
+                // Applies the component for the release build variant.
+                from(components["release"])
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = "de.schnettler.composePreferences"
+                artifactId = "datastore-manager"
+                version = "0.1.0"
+            }
+        }
+    }
 }

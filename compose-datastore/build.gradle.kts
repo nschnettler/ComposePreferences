@@ -42,8 +42,8 @@ afterEvaluate {
                 from(components["release"])
 
                 // You can then customize attributes of the publication as shown below.
-                groupId = "de.schnettler"
-                artifactId = "composeDatastore"
+                groupId = "de.schnettler.composePreferences"
+                artifactId = "compose-datastore"
                 version = "0.1.0"
             }
         }
