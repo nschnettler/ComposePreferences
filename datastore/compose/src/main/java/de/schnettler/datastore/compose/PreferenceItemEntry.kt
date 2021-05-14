@@ -7,13 +7,17 @@ import androidx.datastore.preferences.core.Preferences
 import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem
 import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem.*
 import de.schnettler.datastore.compose.ui.*
+import de.schnettler.datastore.manager.DataStoreManager
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @Composable
-fun PreferenceItemEntry(item: PreferenceItem<*>, prefs: Preferences?) {
+fun PreferenceItemEntry(
+    item: PreferenceItem<*>,
+    prefs: Preferences?,
+    dataStoreManager: DataStoreManager
+) {
     val scope = rememberCoroutineScope()
-    val dataStore = LocalDataStoreManager.current
 
     when (item) {
         is SwitchPreferenceItem -> {
@@ -21,7 +25,7 @@ fun PreferenceItemEntry(item: PreferenceItem<*>, prefs: Preferences?) {
                 item = item,
                 value = prefs?.get(item.request.key) ?: item.request.defaultValue,
                 onValueChanged = { newValue ->
-                    scope.launch { dataStore.editPreference(item.request, newValue) }
+                    scope.launch { dataStoreManager.editPreference(item.request.key, newValue) }
                 }
             )
         }
@@ -30,7 +34,7 @@ fun PreferenceItemEntry(item: PreferenceItem<*>, prefs: Preferences?) {
                 item = item,
                 value = prefs?.get(item.request.key) ?: item.request.defaultValue,
                 onValueChanged = { newValue ->
-                    scope.launch { dataStore.editPreference(item.request, newValue) }
+                    scope.launch { dataStoreManager.editPreference(item.request.key, newValue) }
                 })
         }
         is CheckBoxListPreferenceItem -> {
@@ -38,7 +42,7 @@ fun PreferenceItemEntry(item: PreferenceItem<*>, prefs: Preferences?) {
                 item = item,
                 values = prefs?.get(item.request.key) ?: item.request.defaultValue,
                 onValuesChanged = { newValues ->
-                    scope.launch { dataStore.editPreference(item.request, newValues) }
+                    scope.launch { dataStoreManager.editPreference(item.request.key, newValues) }
                 }
             )
         }
@@ -47,7 +51,7 @@ fun PreferenceItemEntry(item: PreferenceItem<*>, prefs: Preferences?) {
                 item = item,
                 value = prefs?.get(item.request.key) ?: item.request.defaultValue,
                 onValueChanged = { newValue ->
-                    scope.launch { dataStore.editPreference(item.request, newValue) }
+                    scope.launch { dataStoreManager.editPreference(item.request.key, newValue) }
                 },
             )
         }

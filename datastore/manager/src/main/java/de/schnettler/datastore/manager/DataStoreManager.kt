@@ -10,11 +10,8 @@ import kotlinx.coroutines.flow.map
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
-class DataStoreManager(appContext: Context) {
-
-    val settingsDataStore: DataStore<Preferences> = appContext.dataStore
-
-    val preferenceFlow = settingsDataStore.data
+class DataStoreManager(val dataStore: DataStore<Preferences>) {
+    val preferenceFlow = dataStore.data
 
     suspend fun <T> getPreference(preferenceEntry: PreferenceRequest<T>) =
         preferenceFlow.first()[preferenceEntry.key] ?: preferenceEntry.defaultValue
@@ -25,12 +22,12 @@ class DataStoreManager(appContext: Context) {
         }
 
     suspend fun <T> editPreference(key: Preferences.Key<T>, newValue: T) {
-        settingsDataStore.edit { preferences ->
+        dataStore.edit { preferences ->
             preferences[key] = newValue
         }
     }
 
     suspend fun clearPreferences() {
-        settingsDataStore.edit { preferences -> preferences.clear() }
+        dataStore.edit { preferences -> preferences.clear() }
     }
 }

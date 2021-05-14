@@ -5,17 +5,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import com.google.accompanist.insets.statusBarsPadding
 import de.schnettler.datastore.compose.model.BasePreferenceItem
 import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceGroup
 import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem
 import de.schnettler.datastore.compose.ui.GroupHeader
-import com.google.accompanist.insets.statusBarsPadding
+import de.schnettler.datastore.manager.DataStoreManager
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
@@ -23,12 +23,32 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Composable
 fun PreferenceScreen(
     items: List<BasePreferenceItem>,
+    dataStore: DataStore<Preferences>,
     modifier: Modifier = Modifier,
     statusBarPadding: Boolean = false,
 ) {
-    val dataStore = LocalDataStoreManager.current
-    val prefs by dataStore.preferenceFlow.collectAsState(initial = null)
+    val dataStoreManager = remember {
+        DataStoreManager(dataStore)
+    }
 
+    PreferenceScreen(
+        items = items,
+        modifier = modifier,
+        dataStoreManager = dataStoreManager,
+        statusBarPadding = statusBarPadding
+    )
+}
+
+@ExperimentalMaterialApi
+@ExperimentalCoroutinesApi
+@Composable
+fun PreferenceScreen(
+    items: List<BasePreferenceItem>,
+    modifier: Modifier = Modifier,
+    dataStoreManager: DataStoreManager,
+    statusBarPadding: Boolean = false,
+) {
+    val prefs by dataStoreManager.preferenceFlow.collectAsState(initial = null)
     LazyColumn(modifier = modifier) {
         if (statusBarPadding) {
             item { Spacer(modifier = Modifier.statusBarsPadding()) }
@@ -42,7 +62,11 @@ fun PreferenceScreen(
                     }
                     items(preference.preferenceItems) { item ->
                         CompositionLocalProvider(LocalPreferenceEnabledStatus provides preference.enabled) {
-                            PreferenceItemEntry(item, prefs)
+                            PreferenceItemEntry(
+                                item = item,
+                                prefs = prefs,
+                                dataStoreManager = dataStoreManager
+                            )
                         }
                     }
                     item {
@@ -50,7 +74,11 @@ fun PreferenceScreen(
                     }
                 }
                 is PreferenceItem<*> -> item {
-                    PreferenceItemEntry(item = preference, prefs = prefs)
+                    PreferenceItemEntry(
+                        item = preference,
+                        prefs = prefs,
+                        dataStoreManager = dataStoreManager
+                    )
                 }
             }
         }
