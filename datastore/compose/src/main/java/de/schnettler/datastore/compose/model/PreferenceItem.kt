@@ -1,20 +1,20 @@
 package de.schnettler.datastore.compose.model
 
 import androidx.compose.ui.graphics.vector.ImageVector
-import de.schnettler.datastore.manager.PreferenceMetaData
+import de.schnettler.datastore.manager.PreferenceRequest
 
 sealed class BasePreferenceItem() {
     abstract val title: String
     abstract val enabled: Boolean
 
     sealed class PreferenceItem<T> : BasePreferenceItem() {
-        abstract val metaData: PreferenceMetaData<T>
+        abstract val request: PreferenceRequest<T>
         abstract val summary: String
         abstract val singleLineTitle: Boolean
         abstract val icon: ImageVector
 
         data class BasicPreferenceItem(
-            override val metaData: PreferenceMetaData<String>,
+            override val request: PreferenceRequest<String>,
             override val title: String,
             override val summary: String,
             override val singleLineTitle: Boolean,
@@ -25,7 +25,7 @@ sealed class BasePreferenceItem() {
         ) : PreferenceItem<String>()
 
         data class SwitchPreferenceItem(
-            override val metaData: PreferenceMetaData<Boolean>,
+            override val request: PreferenceRequest<Boolean>,
             override val title: String,
             override val summary: String,
             override val singleLineTitle: Boolean,
@@ -34,7 +34,7 @@ sealed class BasePreferenceItem() {
         ) : PreferenceItem<Boolean>()
 
         data class RadioBoxListPreferenceItem(
-            override val metaData: PreferenceMetaData<String>,
+            override val request: PreferenceRequest<String>,
             override val title: String,
             override val summary: String,
             override val singleLineTitle: Boolean,
@@ -45,7 +45,7 @@ sealed class BasePreferenceItem() {
         ) : PreferenceItem<String>()
 
         data class CheckBoxListPreferenceItem(
-            override val metaData: PreferenceMetaData<Set<String>>,
+            override val request: PreferenceRequest<Set<String>>,
             override val title: String,
             override val summary: String,
             override val singleLineTitle: Boolean,
@@ -56,7 +56,7 @@ sealed class BasePreferenceItem() {
         ) : PreferenceItem<Set<String>>()
 
         data class SeekBarPreferenceItem(
-            override val metaData: PreferenceMetaData<Float>,
+            override val request: PreferenceRequest<Float>,
             override val title: String,
             override val summary: String,
             override val singleLineTitle: Boolean,

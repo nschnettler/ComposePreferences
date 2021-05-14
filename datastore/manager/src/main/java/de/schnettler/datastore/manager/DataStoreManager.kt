@@ -16,17 +16,17 @@ class DataStoreManager(appContext: Context) {
 
     val preferenceFlow = settingsDataStore.data
 
-    suspend fun <T> getPreference(preferenceEntry: PreferenceMetaData<T>) =
-        preferenceFlow.first()[preferenceEntry.dataStoreKey] ?: preferenceEntry.defaultValue
+    suspend fun <T> getPreference(preferenceEntry: PreferenceRequest<T>) =
+        preferenceFlow.first()[preferenceEntry.key] ?: preferenceEntry.defaultValue
 
-    fun <T> getPreferenceFlow(preferenceEntry: PreferenceMetaData<T>) =
+    fun <T> getPreferenceFlow(request: PreferenceRequest<T>) =
         preferenceFlow.map {
-            it[preferenceEntry.dataStoreKey] ?: preferenceEntry.defaultValue
+            it[request.key] ?: request.defaultValue
         }
 
-    suspend fun <T> editPreference(preference: PreferenceMetaData<T>, newValue: T) {
+    suspend fun <T> editPreference(key: Preferences.Key<T>, newValue: T) {
         settingsDataStore.edit { preferences ->
-            preferences[preference.dataStoreKey] = newValue
+            preferences[key] = newValue
         }
     }
 

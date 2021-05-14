@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val listGroup = BasePreferenceItem.PreferenceGroup("List Group", false, listOf(
                 BasePreferenceItem.PreferenceItem.RadioBoxListPreferenceItem(
-                    Settings.ListPrefExample,
+                    ListPrefExample,
                     title = "List Preference",
                     summary = "Select one item from a list in a dialog",
                     singleLineTitle = true,
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                     ),
                 ),
                 BasePreferenceItem.PreferenceItem.CheckBoxListPreferenceItem(
-                    Settings.MultiPrefExample,
+                    MultiPrefExample,
                     title = "MultiSelect List Preference",
                     summary = "Select multiple items from a list in a dialog",
                     singleLineTitle = true,
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                             PreferenceScreen(
                                 items = listOf(
                                     BasePreferenceItem.PreferenceItem.SwitchPreferenceItem(
-                                        Settings.SwitchPrefExample,
+                                        SwitchPrefExample,
                                         title = "Switch Preference",
                                         summary = "A preference with a switch.",
                                         singleLineTitle = true,
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                                     ),
                                     listGroup,
                                     BasePreferenceItem.PreferenceItem.SeekBarPreferenceItem(
-                                        Settings.SeekPrefExample,
+                                        SeekPrefExample,
                                         title = "Seekbar Preference",
                                         summary = "Select a value on a seekbar",
                                         singleLineTitle = true,

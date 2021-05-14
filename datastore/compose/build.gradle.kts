@@ -25,6 +25,8 @@ dependencies {
     // Manager
     api(project(":datastore:manager"))
 
+    implementation(Kotlin.stdlib.jdk8)
+
     // Compose
     implementation(AndroidX.compose.material)
     implementation("com.google.accompanist", "accompanist-insets", "_")

@@ -1,15 +1,9 @@
 package de.schnettler.composepreferences
 
 import androidx.datastore.preferences.core.*
-import de.schnettler.datastore.manager.PreferenceMetaData
+import de.schnettler.datastore.manager.PreferenceRequest
 
-sealed class Settings<T>(
-    override val key: String,
-    override val defaultValue: T,
-    override val keyProvider: (String) -> Preferences.Key<T>,
-) : PreferenceMetaData<T> {
-    object SwitchPrefExample : Settings<Boolean>("pref_switch", true, ::booleanPreferencesKey)
-    object ListPrefExample: Settings<String>("pref_list", "", ::stringPreferencesKey)
-    object MultiPrefExample: Settings<Set<String>>("pref_multi_list", emptySet(), ::stringSetPreferencesKey)
-    object SeekPrefExample: Settings<Float>("pref_seek", 50F, ::floatPreferencesKey)
-}
+object SwitchPrefExample : PreferenceRequest<Boolean>(booleanPreferencesKey("pref_switch"), true)
+object ListPrefExample: PreferenceRequest<String>(stringPreferencesKey("pref_list"), "")
+object MultiPrefExample: PreferenceRequest<Set<String>>(stringSetPreferencesKey("pref_multi_list"), emptySet())
+object SeekPrefExample: PreferenceRequest<Float>(floatPreferencesKey("pref_seek"), 50F)

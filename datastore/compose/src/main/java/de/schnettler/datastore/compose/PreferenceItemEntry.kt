@@ -19,35 +19,35 @@ fun PreferenceItemEntry(item: PreferenceItem<*>, prefs: Preferences?) {
         is SwitchPreferenceItem -> {
             SwitchPreference(
                 item = item,
-                value = prefs?.get(item.metaData.dataStoreKey) ?: item.metaData.defaultValue,
+                value = prefs?.get(item.request.key) ?: item.request.defaultValue,
                 onValueChanged = { newValue ->
-                    scope.launch() { dataStore.editPreference(item.metaData, newValue) }
+                    scope.launch { dataStore.editPreference(item.request, newValue) }
                 }
             )
         }
         is RadioBoxListPreferenceItem -> {
             ListPreference(
                 item = item,
-                value = prefs?.get(item.metaData.dataStoreKey) ?: item.metaData.defaultValue,
+                value = prefs?.get(item.request.key) ?: item.request.defaultValue,
                 onValueChanged = { newValue ->
-                    scope.launch { dataStore.editPreference(item.metaData, newValue) }
+                    scope.launch { dataStore.editPreference(item.request, newValue) }
                 })
         }
         is CheckBoxListPreferenceItem -> {
             MultiSelectListPreference(
                 item = item,
-                values = prefs?.get(item.metaData.dataStoreKey) ?: item.metaData.defaultValue,
+                values = prefs?.get(item.request.key) ?: item.request.defaultValue,
                 onValuesChanged = { newValues ->
-                    scope.launch { dataStore.editPreference(item.metaData, newValues) }
+                    scope.launch { dataStore.editPreference(item.request, newValues) }
                 }
             )
         }
         is SeekBarPreferenceItem -> {
             SeekBarPreference(
                 item = item,
-                value = prefs?.get(item.metaData.dataStoreKey) ?: item.metaData.defaultValue,
+                value = prefs?.get(item.request.key) ?: item.request.defaultValue,
                 onValueChanged = { newValue ->
-                    scope.launch { dataStore.editPreference(item.metaData, newValue) }
+                    scope.launch { dataStore.editPreference(item.request, newValue) }
                 },
             )
         }
