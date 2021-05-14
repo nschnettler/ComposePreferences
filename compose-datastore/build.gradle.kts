@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    id("maven-publish")
 }
 
 android {
@@ -30,4 +31,21 @@ dependencies {
     // Compose
     implementation(AndroidX.compose.material)
     implementation("com.google.accompanist", "accompanist-insets", "_")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            create<MavenPublication>("release") {
+                // Applies the component for the release build variant.
+                from(components["release"])
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = "de.schnettler"
+                artifactId = "composeDatastore"
+                version = "0.1.0"
+            }
+        }
+    }
 }
