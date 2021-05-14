@@ -8,13 +8,11 @@ sealed class BasePreferenceItem() {
     abstract val enabled: Boolean
 
     sealed class PreferenceItem<T> : BasePreferenceItem() {
-        abstract val request: PreferenceRequest<T>
         abstract val summary: String
         abstract val singleLineTitle: Boolean
         abstract val icon: ImageVector
 
         data class BasicPreferenceItem(
-            override val request: PreferenceRequest<String>,
             override val title: String,
             override val summary: String,
             override val singleLineTitle: Boolean,
@@ -25,7 +23,7 @@ sealed class BasePreferenceItem() {
         ) : PreferenceItem<String>()
 
         data class SwitchPreferenceItem(
-            override val request: PreferenceRequest<Boolean>,
+            val request: PreferenceRequest<Boolean>,
             override val title: String,
             override val summary: String,
             override val singleLineTitle: Boolean,
@@ -34,7 +32,7 @@ sealed class BasePreferenceItem() {
         ) : PreferenceItem<Boolean>()
 
         data class RadioBoxListPreferenceItem(
-            override val request: PreferenceRequest<String>,
+            val request: PreferenceRequest<String>,
             override val title: String,
             override val summary: String,
             override val singleLineTitle: Boolean,
@@ -45,7 +43,7 @@ sealed class BasePreferenceItem() {
         ) : PreferenceItem<String>()
 
         data class CheckBoxListPreferenceItem(
-            override val request: PreferenceRequest<Set<String>>,
+            val request: PreferenceRequest<Set<String>>,
             override val title: String,
             override val summary: String,
             override val singleLineTitle: Boolean,
@@ -56,7 +54,7 @@ sealed class BasePreferenceItem() {
         ) : PreferenceItem<Set<String>>()
 
         data class SeekBarPreferenceItem(
-            override val request: PreferenceRequest<Float>,
+            val request: PreferenceRequest<Float>,
             override val title: String,
             override val summary: String,
             override val singleLineTitle: Boolean,
