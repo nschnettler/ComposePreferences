@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-internal fun GroupHeader(title: String) {
+internal fun PreferenceGroupHeader(title: String) {
     Column {
         Box(
             contentAlignment = Alignment.CenterStart,

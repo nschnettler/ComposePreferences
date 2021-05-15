@@ -14,7 +14,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import de.schnettler.composepreferences.ui.ComposePreferencesTheme
-import de.schnettler.datastore.compose.PreferenceScreen
+import de.schnettler.datastore.compose.ui.PreferenceScreen
 import de.schnettler.datastore.compose.model.BasePreferenceItem
 import kotlin.math.roundToInt
 

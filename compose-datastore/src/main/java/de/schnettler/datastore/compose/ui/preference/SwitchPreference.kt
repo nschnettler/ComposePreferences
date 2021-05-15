@@ -1,9 +1,10 @@
-package de.schnettler.datastore.compose.ui
+package de.schnettler.datastore.compose.ui.preference
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Switch
 import androidx.compose.runtime.Composable
 import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem.SwitchPreferenceItem
+import de.schnettler.datastore.compose.ui.BasicPreference
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
@@ -12,15 +13,15 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 internal fun SwitchPreference(
     item: SwitchPreferenceItem,
     value: Boolean,
-    onValueChanged: (Boolean) -> Unit
+    onValueChange: (Boolean) -> Unit
 ) {
-    Preference(
+    BasicPreference(
         item = item,
-        onClick = { onValueChanged(!value) }
+        onClick = { onValueChange(!value) }
     ) {
         Switch(
             checked = value,
-            onCheckedChange = { onValueChanged(!value) },
+            onCheckedChange = { onValueChange(!value) },
             enabled = item.enabled
         )
     }

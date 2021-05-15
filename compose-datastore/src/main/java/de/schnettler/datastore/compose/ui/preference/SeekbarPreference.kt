@@ -22,17 +22,17 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 internal fun SeekBarPreference(
     item: SeekBarPreferenceItem,
     value: Float,
-    onValueChanged: (Float) -> Unit,
+    onValueChange: (Float) -> Unit,
 ) {
     val currentValue = remember(value) { mutableStateOf(value) }
-    Preference(
+    BasicPreference(
         item = item,
         summary = {
             PreferenceSummary(
                 item = item,
                 sliderValue = currentValue.value,
-                onValueChanged = { currentValue.value = it },
-                onValueChangeEnd = { onValueChanged(currentValue.value) }
+                onValueChange = { currentValue.value = it },
+                onValueChangeEnd = { onValueChange(currentValue.value) }
             )
         },
     )
@@ -42,7 +42,7 @@ internal fun SeekBarPreference(
 private fun PreferenceSummary(
     item: SeekBarPreferenceItem,
     sliderValue: Float,
-    onValueChanged: (Float) -> Unit,
+    onValueChange: (Float) -> Unit,
     onValueChangeEnd: () -> Unit,
 ) {
     Column {
@@ -52,7 +52,7 @@ private fun PreferenceSummary(
             Spacer(modifier = Modifier.width(16.dp))
             Slider(
                 value = sliderValue,
-                onValueChange = { if (item.enabled) onValueChanged(it) },
+                onValueChange = { if (item.enabled) onValueChange(it) },
                 valueRange = item.valueRange,
                 steps = item.steps,
                 onValueChangeFinished = onValueChangeEnd

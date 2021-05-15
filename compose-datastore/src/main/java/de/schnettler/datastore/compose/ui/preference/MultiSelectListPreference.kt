@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose.ui
+package de.schnettler.datastore.compose.ui.preference
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem.CheckBoxListPreferenceItem
+import de.schnettler.datastore.compose.ui.BasicPreference
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
@@ -20,16 +21,16 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 internal fun MultiSelectListPreference(
     item: CheckBoxListPreferenceItem,
     values: Set<String>,
-    onValuesChanged: (Set<String>) -> Unit
+    onValuesChange: (Set<String>) -> Unit
 ) {
     val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }
-    val descripion = item.entries.filter { values.contains(it.key) }.map { it.value }
+    val description = item.entries.filter { values.contains(it.key) }.map { it.value }
         .joinToString(separator = ", ", limit = 3)
 
-    Preference(
+    BasicPreference(
         item = item,
-        summary = if (descripion.isNotBlank()) descripion else null,
+        summary = if (description.isNotBlank()) description else null,
         onClick = { showDialog.value = true }
     )
 
@@ -46,7 +47,7 @@ internal fun MultiSelectListPreference(
                                 true -> values + current.key
                                 false -> values - current.key
                             }
-                            onValuesChanged(result)
+                            onValuesChange(result)
                         }
                         Row(Modifier
                             .fillMaxWidth()

@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose.ui
+package de.schnettler.datastore.compose.ui.preference
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem.RadioBoxListPreferenceItem
+import de.schnettler.datastore.compose.ui.BasicPreference
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
@@ -20,12 +21,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 internal fun ListPreference(
     item: RadioBoxListPreferenceItem,
     value: String,
-    onValueChanged: (String) -> Unit
+    onValueChange: (String) -> Unit
 ) {
     val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }
 
-    Preference(
+    BasicPreference(
         item = item,
         summary = item.entries[value],
         onClick = { showDialog.value = true },
@@ -40,7 +41,7 @@ internal fun ListPreference(
                     item.entries.forEach { current ->
                         val isSelected = value == current.key
                         val onSelected = {
-                            onValueChanged(current.key)
+                            onValueChange(current.key)
                             closeDialog()
                         }
                         Row(Modifier

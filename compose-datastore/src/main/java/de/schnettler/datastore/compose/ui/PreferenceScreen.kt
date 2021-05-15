@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose
+package de.schnettler.datastore.compose.ui
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -11,10 +11,10 @@ import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.google.accompanist.insets.statusBarsPadding
+import de.schnettler.datastore.compose.LocalPreferenceEnabledStatus
 import de.schnettler.datastore.compose.model.BasePreferenceItem
 import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceGroup
 import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem
-import de.schnettler.datastore.compose.ui.GroupHeader
 import de.schnettler.datastore.manager.DataStoreManager
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -56,13 +56,14 @@ fun PreferenceScreen(
 
         items.forEach { preference ->
             when (preference) {
+                // Create Preference Group
                 is PreferenceGroup -> {
                     item {
-                        GroupHeader(title = preference.title)
+                        PreferenceGroupHeader(title = preference.title)
                     }
                     items(preference.preferenceItems) { item ->
                         CompositionLocalProvider(LocalPreferenceEnabledStatus provides preference.enabled) {
-                            PreferenceItemEntry(
+                            PreferenceItem(
                                 item = item,
                                 prefs = prefs,
                                 dataStoreManager = dataStoreManager
@@ -73,8 +74,10 @@ fun PreferenceScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                     }
                 }
+
+                // Create Preference Item
                 is PreferenceItem<*> -> item {
-                    PreferenceItemEntry(
+                    PreferenceItem(
                         item = preference,
                         prefs = prefs,
                         dataStoreManager = dataStoreManager

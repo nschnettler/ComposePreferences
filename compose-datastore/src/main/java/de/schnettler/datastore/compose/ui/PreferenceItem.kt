@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose
+package de.schnettler.datastore.compose.ui
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -7,12 +7,15 @@ import androidx.datastore.preferences.core.Preferences
 import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem
 import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem.*
 import de.schnettler.datastore.compose.ui.*
+import de.schnettler.datastore.compose.ui.preference.ListPreference
+import de.schnettler.datastore.compose.ui.preference.MultiSelectListPreference
+import de.schnettler.datastore.compose.ui.preference.SwitchPreference
 import de.schnettler.datastore.manager.DataStoreManager
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @Composable
-fun PreferenceItemEntry(
+internal fun PreferenceItem(
     item: PreferenceItem<*>,
     prefs: Preferences?,
     dataStoreManager: DataStoreManager
@@ -24,7 +27,7 @@ fun PreferenceItemEntry(
             SwitchPreference(
                 item = item,
                 value = prefs?.get(item.request.key) ?: item.request.defaultValue,
-                onValueChanged = { newValue ->
+                onValueChange = { newValue ->
                     scope.launch { dataStoreManager.editPreference(item.request.key, newValue) }
                 }
             )
@@ -33,7 +36,7 @@ fun PreferenceItemEntry(
             ListPreference(
                 item = item,
                 value = prefs?.get(item.request.key) ?: item.request.defaultValue,
-                onValueChanged = { newValue ->
+                onValueChange = { newValue ->
                     scope.launch { dataStoreManager.editPreference(item.request.key, newValue) }
                 })
         }
@@ -41,7 +44,7 @@ fun PreferenceItemEntry(
             MultiSelectListPreference(
                 item = item,
                 values = prefs?.get(item.request.key) ?: item.request.defaultValue,
-                onValuesChanged = { newValues ->
+                onValuesChange = { newValues ->
                     scope.launch { dataStoreManager.editPreference(item.request.key, newValues) }
                 }
             )
@@ -50,13 +53,13 @@ fun PreferenceItemEntry(
             SeekBarPreference(
                 item = item,
                 value = prefs?.get(item.request.key) ?: item.request.defaultValue,
-                onValueChanged = { newValue ->
+                onValueChange = { newValue ->
                     scope.launch { dataStoreManager.editPreference(item.request.key, newValue) }
                 },
             )
         }
         is BasicPreferenceItem -> {
-            Preference(
+            BasicPreference(
                 item = item,
                 onClick = item.onClick,
             )

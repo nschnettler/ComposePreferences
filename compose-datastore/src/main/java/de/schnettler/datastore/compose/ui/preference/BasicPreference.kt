@@ -13,7 +13,7 @@ import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem
 
 @ExperimentalMaterialApi
 @Composable
-internal fun Preference(
+internal fun BasicPreference(
     item: PreferenceItem<*>,
     summary: String? = null,
     onClick: () -> Unit = { },
@@ -46,7 +46,7 @@ internal fun Preference(
 
 @ExperimentalMaterialApi
 @Composable
-fun Preference(
+fun BasicPreference(
     item: PreferenceItem<*>,
     summary: @Composable () -> Unit,
     onClick: () -> Unit = { },
