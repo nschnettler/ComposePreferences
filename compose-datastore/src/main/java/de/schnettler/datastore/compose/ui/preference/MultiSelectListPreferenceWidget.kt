@@ -11,25 +11,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem.CheckBoxListPreferenceItem
-import de.schnettler.datastore.compose.ui.BasicPreference
+import de.schnettler.datastore.compose.model.Preference.PreferenceItem.MultiSelectListPreference
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
-internal fun MultiSelectListPreference(
-    item: CheckBoxListPreferenceItem,
+internal fun MultiSelectListPreferenceWidget(
+    preference: MultiSelectListPreference,
     values: Set<String>,
     onValuesChange: (Set<String>) -> Unit
 ) {
     val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }
-    val description = item.entries.filter { values.contains(it.key) }.map { it.value }
+    val description = preference.entries.filter { values.contains(it.key) }.map { it.value }
         .joinToString(separator = ", ", limit = 3)
 
-    BasicPreference(
-        item = item,
+    TextPreferenceWidget(
+        preference = preference,
         summary = if (description.isNotBlank()) description else null,
         onClick = { showDialog.value = true }
     )
@@ -37,10 +36,10 @@ internal fun MultiSelectListPreference(
     if (showDialog.value) {
         AlertDialog(
             onDismissRequest = { closeDialog() },
-            title = { Text(text = item.title) },
+            title = { Text(text = preference.title) },
             text = {
                 Column {
-                    item.entries.forEach { current ->
+                    preference.entries.forEach { current ->
                         val isSelected = values.contains(current.key)
                         val onSelectionChanged = {
                             val result = when (!isSelected) {

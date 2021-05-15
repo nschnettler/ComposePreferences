@@ -3,16 +3,25 @@ package de.schnettler.datastore.compose.model
 import androidx.compose.ui.graphics.vector.ImageVector
 import de.schnettler.datastore.manager.PreferenceRequest
 
-sealed class BasePreferenceItem() {
+/**
+ * The basic building block that represents an individual setting displayed to a user in the preference hierarchy.
+ */
+sealed class Preference {
     abstract val title: String
     abstract val enabled: Boolean
 
-    sealed class PreferenceItem<T> : BasePreferenceItem() {
+    /**
+     * A single [Preference] item
+     */
+    sealed class PreferenceItem<T> : Preference() {
         abstract val summary: String
         abstract val singleLineTitle: Boolean
         abstract val icon: ImageVector
 
-        data class BasicPreferenceItem(
+        /**
+         * 	A basic [PreferenceItem] that only displays text.
+         */
+        data class TextPreference(
             override val title: String,
             override val summary: String,
             override val singleLineTitle: Boolean,
@@ -22,7 +31,10 @@ sealed class BasePreferenceItem() {
             val onClick: () -> Unit = {}
         ) : PreferenceItem<String>()
 
-        data class SwitchPreferenceItem(
+        /**
+         * 	A [PreferenceItem] that provides a two-state toggleable option.
+         */
+        data class SwitchPreference(
             val request: PreferenceRequest<Boolean>,
             override val title: String,
             override val summary: String,
@@ -31,7 +43,11 @@ sealed class BasePreferenceItem() {
             override val enabled: Boolean = true,
         ) : PreferenceItem<Boolean>()
 
-        data class RadioBoxListPreferenceItem(
+        /**
+         * 	A [PreferenceItem] that displays a list of entries as a dialog.
+         * 	Only one entry can be selected at any given time.
+         */
+        data class ListPreference(
             val request: PreferenceRequest<String>,
             override val title: String,
             override val summary: String,
@@ -42,7 +58,11 @@ sealed class BasePreferenceItem() {
             val entries: Map<String, String>,
         ) : PreferenceItem<String>()
 
-        data class CheckBoxListPreferenceItem(
+        /**
+         * A [PreferenceItem] that displays a list of entries as a dialog.
+         * Multiple entries can be selected at the same time.
+         */
+        data class MultiSelectListPreference(
             val request: PreferenceRequest<Set<String>>,
             override val title: String,
             override val summary: String,
@@ -53,7 +73,10 @@ sealed class BasePreferenceItem() {
             val entries: Map<String, String>,
         ) : PreferenceItem<Set<String>>()
 
-        data class SeekBarPreferenceItem(
+        /**
+         * A [PreferenceItem] that displays a seekBar and the currently selected value.
+         */
+        data class SeekBarPreference(
             val request: PreferenceRequest<Float>,
             override val title: String,
             override val summary: String,
@@ -68,10 +91,13 @@ sealed class BasePreferenceItem() {
 
     }
 
+    /**
+     * A container for multiple [PreferenceItem]s
+     */
     data class PreferenceGroup(
         override val title: String,
         override val enabled: Boolean = true,
 
         val preferenceItems: List<PreferenceItem<out Any>>
-    ) : BasePreferenceItem()
+    ) : Preference()
 }

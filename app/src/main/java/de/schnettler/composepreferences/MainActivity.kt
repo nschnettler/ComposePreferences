@@ -14,8 +14,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import de.schnettler.composepreferences.ui.ComposePreferencesTheme
+import de.schnettler.datastore.compose.model.Preference
 import de.schnettler.datastore.compose.ui.PreferenceScreen
-import de.schnettler.datastore.compose.model.BasePreferenceItem
 import kotlin.math.roundToInt
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -27,8 +27,9 @@ class MainActivity : AppCompatActivity() {
 
         val localDataStore = this.dataStore
 
-        val listGroup = BasePreferenceItem.PreferenceGroup("List Group", false, listOf(
-                BasePreferenceItem.PreferenceItem.RadioBoxListPreferenceItem(
+        val listGroup = Preference.PreferenceGroup(
+            "List Group", false, listOf(
+                Preference.PreferenceItem.ListPreference(
                     ListPrefExample,
                     title = "List Preference",
                     summary = "Select one item from a list in a dialog",
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                         "key2" to "Item2"
                     ),
                 ),
-                BasePreferenceItem.PreferenceItem.CheckBoxListPreferenceItem(
+                Preference.PreferenceItem.MultiSelectListPreference(
                     MultiPrefExample,
                     title = "MultiSelect List Preference",
                     summary = "Select multiple items from a list in a dialog",
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                     content = {
                         PreferenceScreen(
                             items = listOf(
-                                BasePreferenceItem.PreferenceItem.SwitchPreferenceItem(
+                                Preference.PreferenceItem.SwitchPreference(
                                     SwitchPrefExample,
                                     title = "Switch Preference",
                                     summary = "A preference with a switch.",
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                                     icon = Icons.Outlined.Warning,
                                 ),
                                 listGroup,
-                                BasePreferenceItem.PreferenceItem.SeekBarPreferenceItem(
+                                Preference.PreferenceItem.SeekBarPreference(
                                     SeekPrefExample,
                                     title = "Seekbar Preference",
                                     summary = "Select a value on a seekbar",

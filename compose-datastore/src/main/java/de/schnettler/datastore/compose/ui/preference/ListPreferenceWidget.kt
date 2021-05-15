@@ -11,34 +11,33 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem.RadioBoxListPreferenceItem
-import de.schnettler.datastore.compose.ui.BasicPreference
+import de.schnettler.datastore.compose.model.Preference.PreferenceItem.ListPreference
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
-internal fun ListPreference(
-    item: RadioBoxListPreferenceItem,
+internal fun ListPreferenceWidget(
+    preference: ListPreference,
     value: String,
     onValueChange: (String) -> Unit
 ) {
     val showDialog = remember { mutableStateOf(false) }
     val closeDialog = { showDialog.value = false }
 
-    BasicPreference(
-        item = item,
-        summary = item.entries[value],
+    TextPreferenceWidget(
+        preference = preference,
+        summary = preference.entries[value],
         onClick = { showDialog.value = true },
     )
 
     if (showDialog.value) {
         AlertDialog(
             onDismissRequest = { closeDialog() },
-            title = { Text(text = item.title) },
+            title = { Text(text = preference.title) },
             text = {
                 Column {
-                    item.entries.forEach { current ->
+                    preference.entries.forEach { current ->
                         val isSelected = value == current.key
                         val onSelected = {
                             onValueChange(current.key)

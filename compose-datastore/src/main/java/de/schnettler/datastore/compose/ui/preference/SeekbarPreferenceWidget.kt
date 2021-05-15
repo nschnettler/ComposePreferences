@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose.ui
+package de.schnettler.datastore.compose.ui.preference
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,23 +13,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem.SeekBarPreferenceItem
+import de.schnettler.datastore.compose.model.Preference.PreferenceItem.SeekBarPreference
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
-internal fun SeekBarPreference(
-    item: SeekBarPreferenceItem,
+internal fun SeekBarPreferenceWidget(
+    preference: SeekBarPreference,
     value: Float,
     onValueChange: (Float) -> Unit,
 ) {
     val currentValue = remember(value) { mutableStateOf(value) }
-    BasicPreference(
-        item = item,
+    TextPreferenceWidget(
+        preference = preference,
         summary = {
             PreferenceSummary(
-                item = item,
+                preference = preference,
                 sliderValue = currentValue.value,
                 onValueChange = { currentValue.value = it },
                 onValueChangeEnd = { onValueChange(currentValue.value) }
@@ -40,21 +40,21 @@ internal fun SeekBarPreference(
 
 @Composable
 private fun PreferenceSummary(
-    item: SeekBarPreferenceItem,
+    preference: SeekBarPreference,
     sliderValue: Float,
     onValueChange: (Float) -> Unit,
     onValueChangeEnd: () -> Unit,
 ) {
     Column {
-        Text(text = item.summary)
+        Text(text = preference.summary)
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = item.valueRepresentation(sliderValue))
+            Text(text = preference.valueRepresentation(sliderValue))
             Spacer(modifier = Modifier.width(16.dp))
             Slider(
                 value = sliderValue,
-                onValueChange = { if (item.enabled) onValueChange(it) },
-                valueRange = item.valueRange,
-                steps = item.steps,
+                onValueChange = { if (preference.enabled) onValueChange(it) },
+                valueRange = preference.valueRange,
+                steps = preference.steps,
                 onValueChangeFinished = onValueChangeEnd
             )
         }

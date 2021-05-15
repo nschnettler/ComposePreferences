@@ -12,9 +12,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.google.accompanist.insets.statusBarsPadding
 import de.schnettler.datastore.compose.LocalPreferenceEnabledStatus
-import de.schnettler.datastore.compose.model.BasePreferenceItem
-import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceGroup
-import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem
+import de.schnettler.datastore.compose.model.Preference
+import de.schnettler.datastore.compose.model.Preference.PreferenceGroup
+import de.schnettler.datastore.compose.model.Preference.PreferenceItem
 import de.schnettler.datastore.manager.DataStoreManager
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -22,7 +22,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @Composable
 fun PreferenceScreen(
-    items: List<BasePreferenceItem>,
+    items: List<Preference>,
     dataStore: DataStore<Preferences>,
     modifier: Modifier = Modifier,
     statusBarPadding: Boolean = false,
@@ -43,7 +43,7 @@ fun PreferenceScreen(
 @ExperimentalCoroutinesApi
 @Composable
 fun PreferenceScreen(
-    items: List<BasePreferenceItem>,
+    items: List<Preference>,
     modifier: Modifier = Modifier,
     dataStoreManager: DataStoreManager,
     statusBarPadding: Boolean = false,

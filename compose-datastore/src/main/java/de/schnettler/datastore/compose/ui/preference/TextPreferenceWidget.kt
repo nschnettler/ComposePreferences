@@ -1,37 +1,37 @@
-package de.schnettler.datastore.compose.ui
+package de.schnettler.datastore.compose.ui.preference
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import de.schnettler.datastore.compose.LocalPreferenceEnabledStatus
-import de.schnettler.datastore.compose.model.BasePreferenceItem.PreferenceItem
+import de.schnettler.datastore.compose.model.Preference.PreferenceItem
+import de.schnettler.datastore.compose.ui.StatusWrapper
 
 @ExperimentalMaterialApi
 @Composable
-internal fun BasicPreference(
-    item: PreferenceItem<*>,
+internal fun TextPreferenceWidget(
+    preference: PreferenceItem<*>,
     summary: String? = null,
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
 ) {
-    val isEnabled = LocalPreferenceEnabledStatus.current && item.enabled
+    val isEnabled = LocalPreferenceEnabledStatus.current && preference.enabled
     StatusWrapper(enabled = isEnabled) {
         ListItem(
             text = {
                 Text(
-                    text = item.title,
-                    maxLines = if (item.singleLineTitle) 1 else Int.MAX_VALUE
+                    text = preference.title,
+                    maxLines = if (preference.singleLineTitle) 1 else Int.MAX_VALUE
                 )
             },
-            secondaryText = { Text(text = summary ?: item.summary) },
+            secondaryText = { Text(text = summary ?: preference.summary) },
             icon = {
                 Icon(
-                    imageVector = item.icon,
+                    imageVector = preference.icon,
                     null,
                     modifier = Modifier
                         .padding(8.dp)
@@ -46,25 +46,25 @@ internal fun BasicPreference(
 
 @ExperimentalMaterialApi
 @Composable
-fun BasicPreference(
-    item: PreferenceItem<*>,
+fun TextPreferenceWidget(
+    preference: PreferenceItem<*>,
     summary: @Composable () -> Unit,
     onClick: () -> Unit = { },
     trailing: @Composable (() -> Unit)? = null
 ) {
-    val isEnabled = LocalPreferenceEnabledStatus.current && item.enabled
+    val isEnabled = LocalPreferenceEnabledStatus.current && preference.enabled
     StatusWrapper(enabled = isEnabled) {
         ListItem(
             text = {
                 Text(
-                    text = item.title,
-                    maxLines = if (item.singleLineTitle) 1 else Int.MAX_VALUE
+                    text = preference.title,
+                    maxLines = if (preference.singleLineTitle) 1 else Int.MAX_VALUE
                 )
             },
             secondaryText = summary,
             icon = {
                 Icon(
-                    imageVector = item.icon,
+                    imageVector = preference.icon,
                     null,
                     modifier = Modifier
                         .padding(8.dp)
@@ -74,12 +74,5 @@ fun BasicPreference(
             modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
             trailing = trailing,
         )
-    }
-}
-
-@Composable
-fun StatusWrapper(enabled: Boolean = true, content: @Composable () -> Unit) {
-    CompositionLocalProvider(LocalContentAlpha provides if (enabled) ContentAlpha.high else ContentAlpha.disabled) {
-        content()
     }
 }
