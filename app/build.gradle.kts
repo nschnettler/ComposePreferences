@@ -29,8 +29,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":compose-datastore"))
 
+    implementation(project(":compose-preferences"))
     implementation(AndroidX.compose.material)
     implementation(AndroidX.appCompat)
     implementation(AndroidX.activity.compose)

@@ -43,7 +43,7 @@ afterEvaluate {
 
                 // You can then customize attributes of the publication as shown below.
                 groupId = "de.schnettler.composePreferences"
-                artifactId = "compose-datastore"
+                artifactId = "compose-preferences"
                 version = "0.1.0"
             }
         }

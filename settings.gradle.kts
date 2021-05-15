@@ -1,6 +1,6 @@
 rootProject.name = "ComposePreferences"
 
-include(":compose-datastore")
+include(":compose-preferences")
 include(":datastore-manager")
 include(":app")
 
