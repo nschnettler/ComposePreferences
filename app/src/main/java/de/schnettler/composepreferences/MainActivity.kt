@@ -15,6 +15,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import de.schnettler.composepreferences.ui.ComposePreferencesTheme
 import de.schnettler.datastore.compose.model.Preference
+import de.schnettler.datastore.compose.model.Preference.PreferenceGroup
+import de.schnettler.datastore.compose.model.Preference.PreferenceItem
 import de.schnettler.datastore.compose.ui.PreferenceScreen
 import kotlin.math.roundToInt
 
@@ -27,9 +29,9 @@ class MainActivity : AppCompatActivity() {
 
         val localDataStore = this.dataStore
 
-        val listGroup = Preference.PreferenceGroup(
+        val listGroup = PreferenceGroup(
             "List Group", false, listOf(
-                Preference.PreferenceItem.ListPreference(
+                PreferenceItem.ListPreference(
                     ListPrefExample,
                     title = "List Preference",
                     summary = "Select one item from a list in a dialog",
@@ -40,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                         "key2" to "Item2"
                     ),
                 ),
-                Preference.PreferenceItem.MultiSelectListPreference(
+                PreferenceItem.MultiSelectListPreference(
                     MultiPrefExample,
                     title = "MultiSelect List Preference",
                     summary = "Select multiple items from a list in a dialog",
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                     content = {
                         PreferenceScreen(
                             items = listOf(
-                                Preference.PreferenceItem.SwitchPreference(
+                                PreferenceItem.SwitchPreference(
                                     SwitchPrefExample,
                                     title = "Switch Preference",
                                     summary = "A preference with a switch.",
@@ -73,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                                     icon = Icons.Outlined.Warning,
                                 ),
                                 listGroup,
-                                Preference.PreferenceItem.SeekBarPreference(
+                                PreferenceItem.SeekBarPreference(
                                     SeekPrefExample,
                                     title = "Seekbar Preference",
                                     summary = "Select a value on a seekbar",
