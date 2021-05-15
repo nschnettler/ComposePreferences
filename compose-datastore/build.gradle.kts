@@ -1,3 +1,5 @@
+import de.fayard.refreshVersions.core.versionFor
+
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -18,7 +20,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.0-beta03"
+        kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.material)
     }
 }
 
@@ -26,11 +28,9 @@ dependencies {
     // Manager
     api(project(":datastore-manager"))
 
-    implementation(Kotlin.stdlib.jdk8)
-
     // Compose
     implementation(AndroidX.compose.material)
-    implementation("com.google.accompanist", "accompanist-insets", "_")
+    implementation(Google.accompanist.insets)
 }
 
 afterEvaluate {

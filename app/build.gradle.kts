@@ -1,3 +1,5 @@
+import de.fayard.refreshVersions.core.versionFor
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -22,7 +24,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.0-beta03"
+        kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.material)
     }
 }
 
@@ -31,6 +33,5 @@ dependencies {
 
     implementation(AndroidX.compose.material)
     implementation(AndroidX.appCompat)
-    implementation("androidx.activity:activity-compose:_")
-    implementation("androidx.datastore:datastore-preferences:_")
+    implementation(AndroidX.activity.compose)
 }

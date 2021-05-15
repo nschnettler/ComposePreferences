@@ -18,7 +18,7 @@ android {
 
 dependencies {
     // Preferences
-    api("androidx.datastore:datastore-preferences:_")
+    api(AndroidX.dataStore.preferences)
 }
 
 afterEvaluate {
