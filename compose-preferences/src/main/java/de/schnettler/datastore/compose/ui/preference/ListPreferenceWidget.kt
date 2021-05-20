@@ -9,47 +9,50 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem.ListPreference
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
 @Composable
 internal fun ListPreferenceWidget(
     preference: ListPreference,
     value: String,
     onValueChange: (String) -> Unit
 ) {
-    val showDialog = remember { mutableStateOf(false) }
-    val closeDialog = { showDialog.value = false }
+    val (isDialogShown, showDialog) = remember { mutableStateOf(false) }
 
     TextPreferenceWidget(
         preference = preference,
         summary = preference.entries[value],
-        onClick = { showDialog.value = true },
+        onClick = { showDialog(!isDialogShown) },
     )
 
-    if (showDialog.value) {
+    if (isDialogShown) {
         AlertDialog(
-            onDismissRequest = { closeDialog() },
+            onDismissRequest = { showDialog(!isDialogShown) },
             title = { Text(text = preference.title) },
-            text = {
-                Column {
+            buttons = {
+                Column(
+                    modifier = Modifier
+                        .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp)
+                ) {
                     preference.entries.forEach { current ->
                         val isSelected = value == current.key
                         val onSelected = {
                             onValueChange(current.key)
-                            closeDialog()
+                            showDialog(!isDialogShown)
                         }
-                        Row(Modifier
-                            .fillMaxWidth()
-                            .selectable(
-                                selected = isSelected,
-                                onClick = { if (!isSelected) onSelected() }
-                            )
-                            .padding(16.dp)
+                        Row(
+                            modifier = Modifier.fillMaxWidth()
+                                .selectable(
+                                    selected = isSelected,
+                                    onClick = { if (!isSelected) onSelected() }
+                                )
+                                .padding(16.dp)
                         ) {
                             RadioButton(
                                 selected = isSelected,
@@ -64,7 +67,9 @@ internal fun ListPreferenceWidget(
                     }
                 }
             },
-            confirmButton = { }
+            properties = DialogProperties(
+                usePlatformDefaultWidth = true
+            )
         )
     }
 }
