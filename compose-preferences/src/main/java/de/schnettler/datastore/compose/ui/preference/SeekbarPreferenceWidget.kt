@@ -14,10 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem.SeekBarPreference
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
 @Composable
 internal fun SeekBarPreferenceWidget(
     preference: SeekBarPreference,
@@ -25,6 +23,7 @@ internal fun SeekBarPreferenceWidget(
     onValueChange: (Float) -> Unit,
 ) {
     val currentValue = remember(value) { mutableStateOf(value) }
+
     TextPreferenceWidget(
         preference = preference,
         summary = {
@@ -34,7 +33,7 @@ internal fun SeekBarPreferenceWidget(
                 onValueChange = { currentValue.value = it },
                 onValueChangeEnd = { onValueChange(currentValue.value) }
             )
-        },
+        }
     )
 }
 

@@ -4,10 +4,8 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Switch
 import androidx.compose.runtime.Composable
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem.SwitchPreference
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
 @Composable
 internal fun SwitchPreferenceWidget(
     preference: SwitchPreference,

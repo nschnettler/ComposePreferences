@@ -18,10 +18,15 @@ internal fun PreferenceGroupHeader(title: String) {
     Column {
         Box(
             contentAlignment = Alignment.CenterStart,
-            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp, top = 16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp, top = 16.dp)
         ) {
             Text(
-                text = title, fontSize = 14.sp, color = MaterialTheme.colors.secondary, fontWeight = FontWeight.Medium,
+                text = title,
+                fontSize = 14.sp,
+                color = MaterialTheme.colors.secondary,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 16.dp)
             )
         }

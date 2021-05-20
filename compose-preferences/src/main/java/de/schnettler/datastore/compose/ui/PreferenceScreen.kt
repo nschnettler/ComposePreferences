@@ -5,7 +5,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
@@ -16,7 +21,6 @@ import de.schnettler.datastore.compose.model.Preference
 import de.schnettler.datastore.compose.model.Preference.PreferenceGroup
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem
 import de.schnettler.datastore.manager.DataStoreManager
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * Preference Screen composable which contains a list of [Preference] items
@@ -26,7 +30,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * @param statusBarPadding whether statusBar padding is needed. Set to true if your app is laid out edgeToEdge
  */
 @ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
+@ExperimentalComposeUiApi
 @Composable
 fun PreferenceScreen(
     items: List<Preference>,
@@ -53,8 +57,8 @@ fun PreferenceScreen(
  * @param modifier [Modifier] to be applied to the preferenceScreen layout
  * @param statusBarPadding whether statusBar padding is needed. Set to true if your app is laid out edgeToEdge
  */
+@ExperimentalComposeUiApi
 @ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
 @Composable
 fun PreferenceScreen(
     items: List<Preference>,
