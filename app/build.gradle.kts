@@ -1,15 +1,17 @@
+import de.fayard.refreshVersions.core.versionFor
+
 plugins {
     id("com.android.application")
     kotlin("android")
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 30
 
     defaultConfig {
         applicationId = "de.schnettler.composepreferences"
-        minSdkVersion(21)
-        targetSdkVersion(30)
+        minSdk = 21
+        targetSdk = 30
         versionCode = 1
         versionName = "1.0"
     }
@@ -18,28 +20,18 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.0-alpha12"
-    }
-    kotlinOptions {
-        freeCompilerArgs += listOf(
-            "-Xopt-in=kotlin.RequiresOptIn",
-            "-Xallow-jvm-ir-dependencies",
-            "-Xskip-prerelease-check",
-            "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        )
+        kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.material)
     }
 }
 
 dependencies {
-    implementation(project(":preferences"))
-    implementation(project(":datastorePreferences"))
 
+    implementation(project(":compose-preferences"))
+    implementation(AndroidX.compose.material)
     implementation(AndroidX.appCompat)
+    implementation(AndroidX.activity.compose)
 }
