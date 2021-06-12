@@ -18,6 +18,13 @@ import de.schnettler.datastore.compose.model.Preference.PreferenceItem
 import de.schnettler.datastore.manager.DataStoreManager
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+/**
+ * Preference Screen composable which contains a list of [Preference] items
+ * @param items [Preference] items which should be displayed on the preference screen. An item can be a single [PreferenceItem] or a group ([PreferenceGroup])
+ * @param dataStore a [DataStore] where the preferences will be saved
+ * @param modifier [Modifier] to be applied to the preferenceScreen layout
+ * @param statusBarPadding whether statusBar padding is needed. Set to true if your app is laid out edgeToEdge
+ */
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
@@ -39,13 +46,20 @@ fun PreferenceScreen(
     )
 }
 
+/**
+ * Preference Screen composable which contains a list of [Preference] items
+ * @param items [Preference] items which should be displayed on the preference screen. An item can be a single [PreferenceItem] or a group ([PreferenceGroup])
+ * @param dataStoreManager a [DataStoreManager] responsible for the dataStore backing the preference screen
+ * @param modifier [Modifier] to be applied to the preferenceScreen layout
+ * @param statusBarPadding whether statusBar padding is needed. Set to true if your app is laid out edgeToEdge
+ */
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @Composable
 fun PreferenceScreen(
     items: List<Preference>,
-    modifier: Modifier = Modifier,
     dataStoreManager: DataStoreManager,
+    modifier: Modifier = Modifier,
     statusBarPadding: Boolean = false,
 ) {
     val prefs by dataStoreManager.preferenceFlow.collectAsState(initial = null)
