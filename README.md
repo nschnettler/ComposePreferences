@@ -1,4 +1,4 @@
-[![Release](https://jitpack.io/v/User/Repo.svg)]
+[![Release](https://jitpack.io/v/Sh4dowSoul/ComposePreferences.svg)]
 (https://jitpack.io/#Sh4dowSoul/ComposePreferences)
 
 # ComposePreferences
