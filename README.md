@@ -4,7 +4,7 @@
 
 Compose Preferences is a library which makes it easy to add preference functionality to your Compose app.
 
-It provides an easy to use PrefereceScreen Composable, which displays a list of PreferenceItems and PreferenceGroups. The Preferences are saved in a DataStore and managed by a DataStoreManager, 
+It provides an easy to use PreferenceScreen Composable, which displays a list of PreferenceItems and PreferenceGroups. The Preferences are saved in a DataStore and managed by a DataStoreManager,
 which makes it easy to access the preferences on the preference screen or from anywhere else (other screens, viewModels, services, ...).
 
 ## Supported Preference Items
@@ -52,7 +52,13 @@ PreferenceItem.SwitchPreference(
   title = "Switch Preference",
   summary = "A preference with a switch.",
   singleLineTitle = true,
-  icon = Icons.Outlined.Warning,
+  icon = {
+    Icon(
+      imageVector = Icons.Outlined.Delete,
+      contentDescription = null,
+      modifier = Modifier.padding(8.dp)
+    )
+  },
 )
 
 // Some service
