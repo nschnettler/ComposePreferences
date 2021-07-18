@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import de.schnettler.composepreferences.ui.ComposePreferencesTheme
 import de.schnettler.datastore.compose.model.Preference.PreferenceGroup
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem
+import de.schnettler.datastore.compose.model.PreferenceIcon
 import de.schnettler.datastore.compose.ui.PreferenceScreen
 import de.schnettler.datastore.manager.DataStoreManager
 import kotlinx.coroutines.launch
@@ -62,13 +63,7 @@ fun AppPreferenceScreen() {
                 title = "List Preference",
                 summary = "Select one item from a list in a dialog",
                 singleLineTitle = true,
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Warning,
-                        contentDescription = null,
-                        modifier = Modifier.padding(8.dp)
-                    )
-                },
+                icon = { PreferenceIcon(icon = Icons.Outlined.Warning) },
                 entries = mapOf(
                     "key1" to "Item1",
                     "key2" to "Item2"
