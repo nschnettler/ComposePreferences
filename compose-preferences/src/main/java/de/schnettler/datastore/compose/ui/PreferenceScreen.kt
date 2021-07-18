@@ -1,11 +1,17 @@
 package de.schnettler.datastore.compose.ui
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
@@ -16,7 +22,6 @@ import de.schnettler.datastore.compose.model.Preference
 import de.schnettler.datastore.compose.model.Preference.PreferenceGroup
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem
 import de.schnettler.datastore.manager.DataStoreManager
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * Preference Screen composable which contains a list of [Preference] items
@@ -26,12 +31,13 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * @param statusBarPadding whether statusBar padding is needed. Set to true if your app is laid out edgeToEdge
  */
 @ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
+@ExperimentalComposeUiApi
 @Composable
 fun PreferenceScreen(
     items: List<Preference>,
     dataStore: DataStore<Preferences>,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     statusBarPadding: Boolean = false,
 ) {
     val dataStoreManager = remember {
@@ -42,6 +48,7 @@ fun PreferenceScreen(
         items = items,
         modifier = modifier,
         dataStoreManager = dataStoreManager,
+        contentPadding = contentPadding,
         statusBarPadding = statusBarPadding
     )
 }
@@ -53,17 +60,22 @@ fun PreferenceScreen(
  * @param modifier [Modifier] to be applied to the preferenceScreen layout
  * @param statusBarPadding whether statusBar padding is needed. Set to true if your app is laid out edgeToEdge
  */
+@ExperimentalComposeUiApi
 @ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
 @Composable
 fun PreferenceScreen(
     items: List<Preference>,
     dataStoreManager: DataStoreManager,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     statusBarPadding: Boolean = false,
 ) {
     val prefs by dataStoreManager.preferenceFlow.collectAsState(initial = null)
-    LazyColumn(modifier = modifier) {
+
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = contentPadding
+    ) {
         if (statusBarPadding) {
             item { Spacer(modifier = Modifier.statusBarsPadding()) }
         }
