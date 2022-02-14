@@ -5,7 +5,7 @@ buildscript {
         maven { url = uri("https://dl.bintray.com/kotlin/kotlin-eap") }
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.0-beta05")
+        classpath("com.android.tools.build:gradle:7.3.0-alpha02")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
     }
 }
