@@ -5,14 +5,14 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Warning
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import de.schnettler.composepreferences.ui.ComposePreferencesTheme
 import de.schnettler.datastore.compose.model.Preference.PreferenceGroup
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem
-import de.schnettler.datastore.compose.material.widget.PreferenceIcon
-import de.schnettler.datastore.compose.material.PreferenceScreen
+import de.schnettler.datastore.compose.material3.widget.PreferenceIcon
+import de.schnettler.datastore.compose.material3.PreferenceScreen
 import de.schnettler.datastore.manager.DataStoreManager
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun AppPreferenceScreen() {
     val context = LocalContext.current
@@ -108,7 +108,7 @@ fun AppPreferenceScreen() {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = { Text(text = "Compose Preferences") }
             )
         },
