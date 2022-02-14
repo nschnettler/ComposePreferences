@@ -45,7 +45,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = "de.schnettler.composePreferences"
                 artifactId = "preferences-material3"
-                version = "0.1.3"
+                version = "0.1.4"
             }
         }
     }
