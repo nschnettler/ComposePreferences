@@ -107,7 +107,11 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.Sh4dowSoul.ComposePreferences:compose-preferences:<version>")
+    // Material 2
+    implementation("com.github.Sh4dowSoul.ComposePreferences:preferences-material:<version>")
+    
+    // OR: Material 3
+    implementation("com.github.Sh4dowSoul.ComposePreferences:preferences-material3:<version>")
     
     // Optional - Easy access to preferences from modules without compose dependency
     implementation("com.github.Sh4dowSoul.ComposePreferences:datastore-manager:<version>") 
