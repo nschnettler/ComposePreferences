@@ -6,26 +6,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkThemeColorScheme = darkColorScheme(
-//    primary = purple200,
-//    primaryVariant = purple700,
-//    secondary = teal200
-)
+private val DarkThemeColorScheme = darkColorScheme()
 
-private val LightThemeColorScheme = lightColorScheme(
-//    primary = purple500,
-//    primaryVariant = purple700,
-//    secondary = teal200
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
-)
+private val LightThemeColorScheme = lightColorScheme()
 
 @Composable
 fun ComposePreferencesTheme(
