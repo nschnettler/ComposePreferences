@@ -59,13 +59,14 @@ internal fun MultiSelectListPreferenceWidget(
                             onValuesChange(result)
                         }
                         Row(
+                            verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .selectable(
                                     selected = isSelected,
                                     onClick = { onSelectionChanged() }
                                 )
-                                .padding(16.dp)
+                                .padding(4.dp)
                         ) {
                             Checkbox(
                                 checked = isSelected,
