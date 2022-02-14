@@ -3,7 +3,7 @@ package de.schnettler.datastore.compose.material.widget
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Switch
 import androidx.compose.runtime.Composable
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem.SwitchPreference
+import de.schnettler.datastore.compose.material.model.Preference.PreferenceItem.SwitchPreference
 
 @ExperimentalMaterialApi
 @Composable

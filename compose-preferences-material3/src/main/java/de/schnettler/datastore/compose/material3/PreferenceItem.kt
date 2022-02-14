@@ -11,13 +11,13 @@ import de.schnettler.datastore.compose.material3.widget.MultiSelectListPreferenc
 import de.schnettler.datastore.compose.material3.widget.SeekBarPreferenceWidget
 import de.schnettler.datastore.compose.material3.widget.SwitchPreferenceWidget
 import de.schnettler.datastore.compose.material3.widget.TextPreferenceWidget
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem.DropDownMenuPreference
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem.ListPreference
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem.MultiSelectListPreference
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem.SeekBarPreference
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem.SwitchPreference
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem.TextPreference
+import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem
+import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem.DropDownMenuPreference
+import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem.ListPreference
+import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem.MultiSelectListPreference
+import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem.SeekBarPreference
+import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem.SwitchPreference
+import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem.TextPreference
 import de.schnettler.datastore.manager.DataStoreManager
 import kotlinx.coroutines.launch
 

@@ -17,10 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.google.accompanist.insets.statusBarsPadding
-import de.schnettler.datastore.compose.LocalPreferenceEnabledStatus
-import de.schnettler.datastore.compose.model.Preference
-import de.schnettler.datastore.compose.model.Preference.PreferenceGroup
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem
+import de.schnettler.datastore.compose.material3.model.Preference
+import de.schnettler.datastore.compose.material3.model.Preference.PreferenceGroup
+import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem
 import de.schnettler.datastore.compose.material3.widget.PreferenceGroupHeader
 import de.schnettler.datastore.manager.DataStoreManager
 

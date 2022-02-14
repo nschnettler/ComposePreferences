@@ -13,7 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import de.schnettler.datastore.compose.material.widget.TextPreferenceWidget
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem.DropDownMenuPreference
+import de.schnettler.datastore.compose.material.model.Preference.PreferenceItem.DropDownMenuPreference
 
 @ExperimentalMaterialApi
 @Composable

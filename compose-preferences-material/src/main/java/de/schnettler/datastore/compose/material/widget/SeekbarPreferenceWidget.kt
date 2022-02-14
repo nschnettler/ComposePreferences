@@ -13,7 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem.SeekBarPreference
+import de.schnettler.datastore.compose.material.model.Preference.PreferenceItem.SeekBarPreference
 
 @ExperimentalMaterialApi
 @Composable

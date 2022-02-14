@@ -20,7 +20,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem.MultiSelectListPreference
+import de.schnettler.datastore.compose.material.model.Preference.PreferenceItem.MultiSelectListPreference
 
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi

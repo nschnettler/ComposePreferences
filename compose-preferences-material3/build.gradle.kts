@@ -27,7 +27,6 @@ android {
 dependencies {
     // Manager
     api(project(":datastore-manager"))
-    api(project(":compose-preferences"))
 
     // Compose
     implementation(AndroidX.compose.material)

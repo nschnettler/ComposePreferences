@@ -6,9 +6,9 @@ import androidx.compose.material.ListItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import de.schnettler.datastore.compose.LocalPreferenceEnabledStatus
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem
-import de.schnettler.datastore.compose.ui.StatusWrapper
+import de.schnettler.datastore.compose.material.LocalPreferenceEnabledStatus
+import de.schnettler.datastore.compose.material.StatusWrapper
+import de.schnettler.datastore.compose.material.model.Preference.PreferenceItem
 
 @ExperimentalMaterialApi
 @Composable

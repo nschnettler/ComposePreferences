@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose.model
+package de.schnettler.datastore.compose.material3.model
 
 import androidx.compose.runtime.Composable
 import de.schnettler.datastore.manager.PreferenceRequest

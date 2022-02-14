@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose.ui
+package de.schnettler.datastore.compose.material
 
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.LocalContentAlpha

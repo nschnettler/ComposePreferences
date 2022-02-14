@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import de.schnettler.composepreferences.ui.ComposePreferencesTheme
-import de.schnettler.datastore.compose.model.Preference.PreferenceGroup
-import de.schnettler.datastore.compose.model.Preference.PreferenceItem
+import de.schnettler.datastore.compose.material3.model.Preference.PreferenceGroup
+import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem
 import de.schnettler.datastore.compose.material3.widget.PreferenceIcon
 import de.schnettler.datastore.compose.material3.PreferenceScreen
 import de.schnettler.datastore.manager.DataStoreManager
