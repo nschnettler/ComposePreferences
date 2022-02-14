@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose.ui
+package de.schnettler.datastore.compose.material
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +21,7 @@ import de.schnettler.datastore.compose.LocalPreferenceEnabledStatus
 import de.schnettler.datastore.compose.model.Preference
 import de.schnettler.datastore.compose.model.Preference.PreferenceGroup
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem
+import de.schnettler.datastore.compose.material.widget.PreferenceGroupHeader
 import de.schnettler.datastore.manager.DataStoreManager
 
 /**

@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose.model
+package de.schnettler.datastore.compose.material.widget
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size

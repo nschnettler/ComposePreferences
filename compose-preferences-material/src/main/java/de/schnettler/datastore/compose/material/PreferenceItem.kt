@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose.ui
+package de.schnettler.datastore.compose.material
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -12,12 +12,11 @@ import de.schnettler.datastore.compose.model.Preference.PreferenceItem.MultiSele
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem.SeekBarPreference
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem.SwitchPreference
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem.TextPreference
-import de.schnettler.datastore.compose.ui.preference.DropDownPreferenceWidget
-import de.schnettler.datastore.compose.ui.preference.ListPreferenceWidget
-import de.schnettler.datastore.compose.ui.preference.MultiSelectListPreferenceWidget
-import de.schnettler.datastore.compose.ui.preference.SeekBarPreferenceWidget
-import de.schnettler.datastore.compose.ui.preference.SwitchPreferenceWidget
-import de.schnettler.datastore.compose.ui.preference.TextPreferenceWidget
+import de.schnettler.datastore.compose.material.widget.ListPreferenceWidget
+import de.schnettler.datastore.compose.material.widget.MultiSelectListPreferenceWidget
+import de.schnettler.datastore.compose.material.widget.SeekBarPreferenceWidget
+import de.schnettler.datastore.compose.material.widget.SwitchPreferenceWidget
+import de.schnettler.datastore.compose.material.widget.TextPreferenceWidget
 import de.schnettler.datastore.manager.DataStoreManager
 import kotlinx.coroutines.launch
 

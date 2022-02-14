@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose.ui.preference
+package de.schnettler.datastore.compose.material
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import de.schnettler.datastore.compose.material.widget.TextPreferenceWidget
 import de.schnettler.datastore.compose.model.Preference.PreferenceItem.DropDownMenuPreference
 
 @ExperimentalMaterialApi

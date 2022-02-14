@@ -30,7 +30,7 @@ android {
 
 dependencies {
 
-    implementation(project(":compose-preferences"))
+    implementation(project(":compose-preferences-material"))
     implementation(AndroidX.compose.material)
     implementation(AndroidX.appCompat)
     implementation(AndroidX.activity.compose)

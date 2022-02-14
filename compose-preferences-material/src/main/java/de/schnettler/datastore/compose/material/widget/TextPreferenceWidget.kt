@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose.ui.preference
+package de.schnettler.datastore.compose.material.widget
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material.ExperimentalMaterialApi

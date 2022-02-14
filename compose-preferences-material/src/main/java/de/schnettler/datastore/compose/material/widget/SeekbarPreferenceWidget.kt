@@ -1,4 +1,4 @@
-package de.schnettler.datastore.compose.ui.preference
+package de.schnettler.datastore.compose.material.widget
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

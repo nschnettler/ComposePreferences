@@ -13,3 +13,4 @@ buildscript {
         gradlePluginPortal()
     }
 }
+include(":compose-preferences-material")
