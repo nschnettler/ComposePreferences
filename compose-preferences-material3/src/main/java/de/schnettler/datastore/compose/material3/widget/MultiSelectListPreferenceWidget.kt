@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -42,6 +44,7 @@ internal fun MultiSelectListPreferenceWidget(
                 Column(
                     modifier = Modifier
                         .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp)
+                        .verticalScroll(state = rememberScrollState())
                 ) {
                     preference.entries.forEach { current ->
                         val isSelected = values.contains(current.key)
