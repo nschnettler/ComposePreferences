@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem.MultiSelectListPreference
@@ -86,7 +87,7 @@ internal fun MultiSelectListPreferenceWidget(
                     onClick = { showDialog(!isDialogShown) },
                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.secondary),
                 ) {
-                    Text(text = "Select")
+                    Text(text = stringResource(android.R.string.ok))
                 }
             }
         )
