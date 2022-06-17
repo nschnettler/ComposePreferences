@@ -16,6 +16,7 @@ internal fun TextPreferenceWidget(
     trailing: @Composable (() -> Unit)? = null
 ) {
     val isEnabled = LocalPreferenceEnabledStatus.current && preference.enabled
+
     StatusWrapper(enabled = isEnabled) {
         MaterialListItem(
             text = {
@@ -26,7 +27,10 @@ internal fun TextPreferenceWidget(
             },
             secondaryText = { Text(text = summary ?: preference.summary) },
             icon = preference.icon,
-            modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
+            modifier = Modifier.clickable(
+                onClick = onClick,
+                enabled = isEnabled
+            ),
             trailing = trailing,
         )
     }
@@ -40,6 +44,7 @@ fun TextPreferenceWidget(
     trailing: @Composable (() -> Unit)? = null
 ) {
     val isEnabled = LocalPreferenceEnabledStatus.current && preference.enabled
+
     StatusWrapper(enabled = isEnabled) {
         MaterialListItem(
             text = {
@@ -50,7 +55,10 @@ fun TextPreferenceWidget(
             },
             secondaryText = summary,
             icon = preference.icon,
-            modifier = Modifier.clickable(onClick = { if (isEnabled) onClick() }),
+            modifier = Modifier.clickable(
+                onClick = onClick,
+                enabled = isEnabled
+            ),
             trailing = trailing,
         )
     }

@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import de.schnettler.datastore.compose.material3.LocalPreferenceEnabledStatus
 import de.schnettler.datastore.compose.material3.compat.Material3SliderDefaults
 import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem.SeekBarPreference
 
@@ -43,6 +44,8 @@ private fun PreferenceSummary(
     onValueChange: (Float) -> Unit,
     onValueChangeEnd: () -> Unit,
 ) {
+    val isEnabled = LocalPreferenceEnabledStatus.current && preference.enabled
+
     Column {
         Text(text = preference.summary)
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -54,7 +57,8 @@ private fun PreferenceSummary(
                 valueRange = preference.valueRange,
                 steps = preference.steps,
                 onValueChangeFinished = onValueChangeEnd,
-                colors = Material3SliderDefaults.colors()
+                colors = Material3SliderDefaults.colors(),
+                enabled = isEnabled
             )
         }
     }
