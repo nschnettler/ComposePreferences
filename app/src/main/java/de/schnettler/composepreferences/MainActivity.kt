@@ -91,6 +91,7 @@ fun AppPreferenceScreen() {
                 title = "DropDown Menu Preference",
                 summary = "Select an item from a dropdown menu",
                 singleLineTitle = true,
+                dependency = listOf(DependencySwitchPrefExample),
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Warning,
@@ -129,12 +130,26 @@ fun AppPreferenceScreen() {
                         )
                     }
                 ),
+                PreferenceItem.SwitchPreference(
+                    request = DependencySwitchPrefExample,
+                    title = "Dependency Switch Preference",
+                    summary = "A preference with a switch.",
+                    singleLineTitle = true,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Warning,
+                            contentDescription = null,
+                            modifier = Modifier.padding(8.dp)
+                        )
+                    }
+                ),
                 listGroup,
                 PreferenceItem.SeekBarPreference(
                     request = SeekPrefExample,
                     title = "Seekbar Preference",
                     summary = "Select a value on a seekbar",
                     singleLineTitle = true,
+                    dependency = listOf(DependencySwitchPrefExample),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Warning,

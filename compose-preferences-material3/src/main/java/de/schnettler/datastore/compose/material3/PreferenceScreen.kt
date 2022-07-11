@@ -88,7 +88,11 @@ fun PreferenceScreen(
                         PreferenceGroupHeader(title = preference.title)
                     }
                     items(preference.preferenceItems) { item ->
-                        CompositionLocalProvider(LocalPreferenceEnabledStatus provides preference.enabled) {
+                        val enabled = preference.enabled && item.dependency.all { dependency ->
+                            prefs?.get(dependency.key) ?: dependency.defaultValue
+                        }
+
+                        CompositionLocalProvider(LocalPreferenceEnabledStatus provides enabled) {
                             PreferenceItem(
                                 item = item,
                                 prefs = prefs,
@@ -103,11 +107,17 @@ fun PreferenceScreen(
 
                 // Create Preference Item
                 is PreferenceItem<*> -> item {
-                    PreferenceItem(
-                        item = preference,
-                        prefs = prefs,
-                        dataStoreManager = dataStoreManager
-                    )
+                    val enabled = preference.enabled && preference.dependency.all { dependency ->
+                        prefs?.get(dependency.key) ?: dependency.defaultValue
+                    }
+
+                    CompositionLocalProvider(LocalPreferenceEnabledStatus provides enabled) {
+                        PreferenceItem(
+                            item = preference,
+                            prefs = prefs,
+                            dataStoreManager = dataStoreManager
+                        )
+                    }
                 }
             }
         }

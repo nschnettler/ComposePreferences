@@ -4,7 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Slider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -12,10 +13,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import de.schnettler.datastore.compose.material3.compat.Material3SliderDefaults
+import de.schnettler.datastore.compose.material3.LocalPreferenceEnabledStatus
 import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem.SeekBarPreference
 
 @Composable
+@ExperimentalMaterial3Api
 internal fun SeekBarPreferenceWidget(
     preference: SeekBarPreference,
     value: Float,
@@ -43,6 +45,8 @@ private fun PreferenceSummary(
     onValueChange: (Float) -> Unit,
     onValueChangeEnd: () -> Unit,
 ) {
+    val isEnabled = LocalPreferenceEnabledStatus.current && preference.enabled
+
     Column {
         Text(text = preference.summary)
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -54,7 +58,7 @@ private fun PreferenceSummary(
                 valueRange = preference.valueRange,
                 steps = preference.steps,
                 onValueChangeFinished = onValueChangeEnd,
-                colors = Material3SliderDefaults.colors()
+                enabled = isEnabled
             )
         }
     }

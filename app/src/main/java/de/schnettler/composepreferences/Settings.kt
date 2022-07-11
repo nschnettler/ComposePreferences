@@ -13,6 +13,7 @@ import de.schnettler.datastore.manager.PreferenceRequest
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 object SwitchPrefExample : PreferenceRequest<Boolean>(booleanPreferencesKey("pref_switch"), true)
+object DependencySwitchPrefExample : PreferenceRequest<Boolean>(booleanPreferencesKey("dependency_pref_switch"), true)
 object ListPrefExample : PreferenceRequest<String>(stringPreferencesKey("pref_list"), "")
 object MultiPrefExample : PreferenceRequest<Set<String>>(stringSetPreferencesKey("pref_multi_list"), emptySet())
 object SeekPrefExample : PreferenceRequest<Float>(floatPreferencesKey("pref_seek"), 50F)
