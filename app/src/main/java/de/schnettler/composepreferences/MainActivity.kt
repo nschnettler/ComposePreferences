@@ -66,7 +66,25 @@ fun AppPreferenceScreen() {
                 icon = { PreferenceIcon(icon = Icons.Outlined.Warning) },
                 entries = mapOf(
                     "key1" to "Item1",
-                    "key2" to "Item2"
+                    "key2" to "Item2",
+                    "key3" to "Item3",
+                    "key4" to "Item4",
+                    "key5" to "Item5",
+                    "key6" to "Item6",
+                    "key7" to "Item7",
+                    "key8" to "Item8",
+                    "key9" to "Item9",
+                    "key10" to "Item10",
+                    "key11" to "Item11",
+                    "key12" to "Item12",
+                    "key13" to "Item13",
+                    "key14" to "Item14",
+                    "key15" to "Item15",
+                    "key16" to "Item16",
+                    "key17" to "Item17",
+                    "key18" to "Item18",
+                    "key19" to "Item19",
+                    "key20" to "Item20"
                 )
             ),
             PreferenceItem.MultiSelectListPreference(
@@ -83,7 +101,25 @@ fun AppPreferenceScreen() {
                 },
                 entries = mapOf(
                     "key1" to "Item1",
-                    "key2" to "Item2"
+                    "key2" to "Item2",
+                    "key3" to "Item3",
+                    "key4" to "Item4",
+                    "key5" to "Item5",
+                    "key6" to "Item6",
+                    "key7" to "Item7",
+                    "key8" to "Item8",
+                    "key9" to "Item9",
+                    "key10" to "Item10",
+                    "key11" to "Item11",
+                    "key12" to "Item12",
+                    "key13" to "Item13",
+                    "key14" to "Item14",
+                    "key15" to "Item15",
+                    "key16" to "Item16",
+                    "key17" to "Item17",
+                    "key18" to "Item18",
+                    "key19" to "Item19",
+                    "key20" to "Item20"
                 )
             ),
             PreferenceItem.DropDownMenuPreference(
@@ -100,7 +136,25 @@ fun AppPreferenceScreen() {
                 },
                 entries = mapOf(
                     "key1" to "Item1",
-                    "key2" to "Item2"
+                    "key2" to "Item2",
+                    "key3" to "Item3",
+                    "key4" to "Item4",
+                    "key5" to "Item5",
+                    "key6" to "Item6",
+                    "key7" to "Item7",
+                    "key8" to "Item8",
+                    "key9" to "Item9",
+                    "key10" to "Item10",
+                    "key11" to "Item11",
+                    "key12" to "Item12",
+                    "key13" to "Item13",
+                    "key14" to "Item14",
+                    "key15" to "Item15",
+                    "key16" to "Item16",
+                    "key17" to "Item17",
+                    "key18" to "Item18",
+                    "key19" to "Item19",
+                    "key20" to "Item20"
                 )
             )
         )
