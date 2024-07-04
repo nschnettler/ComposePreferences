@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -12,8 +14,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import de.schnettler.datastore.compose.material3.getItemDelimiterInCompose
 import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem.MultiSelectListPreference
 
 @ExperimentalMaterial3Api
@@ -24,9 +28,16 @@ internal fun MultiSelectListPreferenceWidget(
     values: Set<String>,
     onValuesChange: (Set<String>) -> Unit
 ) {
+    val delimiter = getItemDelimiterInCompose()
     val (isDialogShown, showDialog) = remember { mutableStateOf(false) }
-    val description = preference.entries.filter { values.contains(it.key) }.map { it.value }
-        .joinToString(separator = ", ", limit = 3)
+    val description = if (preference.customSummaryTextWhenAllAreSelected != null && preference.entries.all {
+            values.contains(it.key)
+        }) {
+        preference.customSummaryTextWhenAllAreSelected
+    } else {
+        preference.entries.filter { values.contains(it.key) }.map { it.value }
+            .joinToString(separator = delimiter, limit = preference.displayLimit)
+    }
 
     TextPreferenceWidget(
         preference = preference,
@@ -42,6 +53,7 @@ internal fun MultiSelectListPreferenceWidget(
                 Column(
                     modifier = Modifier
                         .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp)
+                        .verticalScroll(state = rememberScrollState())
                 ) {
                     preference.entries.forEach { current ->
                         val isSelected = values.contains(current.key)
@@ -83,7 +95,7 @@ internal fun MultiSelectListPreferenceWidget(
                     onClick = { showDialog(!isDialogShown) },
                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.secondary),
                 ) {
-                    Text(text = "Select")
+                    Text(text = stringResource(android.R.string.ok))
                 }
             }
         )

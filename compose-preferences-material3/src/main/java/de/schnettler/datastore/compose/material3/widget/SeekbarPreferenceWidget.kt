@@ -44,7 +44,7 @@ private fun PreferenceSummary(
     onValueChangeEnd: () -> Unit,
 ) {
     Column {
-        Text(text = preference.summary)
+        preference.summary?.let { Text(text = it) }
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(text = preference.valueRepresentation(sliderValue))
             Spacer(modifier = Modifier.width(16.dp))

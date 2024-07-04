@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 internal fun PreferenceItem(
     item: PreferenceItem<*>,
     prefs: Preferences?,
-    dataStoreManager: DataStoreManager
+    dataStoreManager: DataStoreManager,
 ) {
     val scope = rememberCoroutineScope()
 

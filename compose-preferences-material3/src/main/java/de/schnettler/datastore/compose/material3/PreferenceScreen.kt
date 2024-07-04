@@ -3,6 +3,7 @@ package de.schnettler.datastore.compose.material3
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.google.accompanist.insets.statusBarsPadding
 import de.schnettler.datastore.compose.material3.model.Preference
 import de.schnettler.datastore.compose.material3.model.Preference.PreferenceGroup
 import de.schnettler.datastore.compose.material3.model.Preference.PreferenceItem
@@ -49,7 +49,7 @@ fun PreferenceScreen(
         modifier = modifier,
         dataStoreManager = dataStoreManager,
         contentPadding = contentPadding,
-        statusBarPadding = statusBarPadding
+        statusBarPadding = statusBarPadding,
     )
 }
 
@@ -92,7 +92,7 @@ fun PreferenceScreen(
                             PreferenceItem(
                                 item = item,
                                 prefs = prefs,
-                                dataStoreManager = dataStoreManager
+                                dataStoreManager = dataStoreManager,
                             )
                         }
                     }
@@ -106,7 +106,7 @@ fun PreferenceScreen(
                     PreferenceItem(
                         item = preference,
                         prefs = prefs,
-                        dataStoreManager = dataStoreManager
+                        dataStoreManager = dataStoreManager,
                     )
                 }
             }
